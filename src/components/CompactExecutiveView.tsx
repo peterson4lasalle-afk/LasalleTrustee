@@ -18,7 +18,8 @@ import {
   Mail,
   Award,
   BookOpen,
-  Briefcase
+  Briefcase,
+  ExternalLink
 } from 'lucide-react';
 
 interface CompactExecutiveViewProps {
@@ -432,8 +433,19 @@ export const CompactExecutiveView: React.FC<CompactExecutiveViewProps> = ({
             })}
           </div>
 
-          <div className="p-2.5 rounded-lg bg-amber-50 border border-amber-200 text-[11px] text-amber-900 flex items-center justify-between">
-            <span>Confirm your <strong>English Public</strong> support on VoterLookup.ca</span>
+          <div className="p-2.5 rounded-lg bg-amber-50 border border-amber-200 text-[11px] text-amber-900 leading-relaxed">
+            <span>
+              For information on eligibility and timeline, visit the LaSalle election page here,{' '}
+              <a
+                href="https://www.lasalle.ca/town-hall/lasalle-election/voter-information/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline font-bold text-amber-950 hover:text-amber-800 break-all inline-flex items-center gap-0.5"
+              >
+                https://www.lasalle.ca/town-hall/lasalle-election/voter-information/
+                <ExternalLink className="w-3 h-3 inline-block shrink-0 ml-0.5" />
+              </a>
+            </span>
           </div>
         </div>
 

@@ -19,7 +19,6 @@ import { PrintablePlatformModal } from './components/PrintablePlatformModal';
 import { CandidateCustomizerModal } from './components/CandidateCustomizerModal';
 import { CompactExecutiveView } from './components/CompactExecutiveView';
 import { TabbedFocusView } from './components/TabbedFocusView';
-import { LayoutGrid, Layers, AlignJustify } from 'lucide-react';
 
 export type LayoutMode = 'compact' | 'tabbed' | 'extended';
 
@@ -38,14 +37,14 @@ export default function App() {
 
   const [layoutMode, setLayoutMode] = useState<LayoutMode>(() => {
     try {
-      const saved = localStorage.getItem('gecdsb_layout_mode_v3') as LayoutMode;
+      const saved = localStorage.getItem('gecdsb_layout_mode_v4') as LayoutMode;
       if (saved && ['compact', 'tabbed', 'extended'].includes(saved)) {
         return saved;
       }
     } catch {
       // ignore
     }
-    return 'tabbed'; // Default to Tabbed Screen as preferred by the candidate
+    return 'compact'; // Bento format as default
   });
 
   const [activePillarId, setActivePillarId] = useState<string | null>(null);
@@ -62,7 +61,7 @@ export default function App() {
 
   useEffect(() => {
     try {
-      localStorage.setItem('gecdsb_layout_mode_v3', layoutMode);
+      localStorage.setItem('gecdsb_layout_mode_v4', layoutMode);
     } catch {
       // ignore
     }
@@ -91,56 +90,7 @@ export default function App() {
         onOpenPrintable={() => setIsPrintableOpen(true)}
       />
 
-      {/* Layout Mode Switcher Banner */}
-      <div className="bg-slate-100 border-b border-slate-200 py-2 px-4">
-        <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2 text-xs">
-          <div className="flex items-center gap-2">
-            <span className="font-bold text-slate-700">Page Layout:</span>
-            <div className="inline-flex rounded-lg bg-slate-200 p-0.5 border border-slate-300">
-              <button
-                onClick={() => setLayoutMode('compact')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-md font-semibold transition-all cursor-pointer ${
-                  layoutMode === 'compact'
-                    ? 'bg-white text-gecdsb shadow-xs font-bold'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                <LayoutGrid className="w-3.5 h-3.5" />
-                <span>Compact Bento (Short)</span>
-              </button>
-              <button
-                onClick={() => setLayoutMode('tabbed')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-md font-semibold transition-all cursor-pointer ${
-                  layoutMode === 'tabbed'
-                    ? 'bg-white text-gecdsb shadow-xs font-bold'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                <Layers className="w-3.5 h-3.5" />
-                <span>Tabbed Screen</span>
-              </button>
-              <button
-                onClick={() => setLayoutMode('extended')}
-                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-md font-semibold transition-all cursor-pointer ${
-                  layoutMode === 'extended'
-                    ? 'bg-white text-gecdsb shadow-xs font-bold'
-                    : 'text-slate-600 hover:text-slate-900'
-                }`}
-              >
-                <AlignJustify className="w-3.5 h-3.5" />
-                <span>Full Long Scroll</span>
-              </button>
-            </div>
-          </div>
-          <span className="text-slate-500 hidden sm:inline">
-            {layoutMode === 'compact' && '✨ Clean, high-density bento layout (cuts page length by ~75%)'}
-            {layoutMode === 'tabbed' && '⚡ 1-screen tabbed view — zero vertical scrolling'}
-            {layoutMode === 'extended' && '📜 Full multi-section campaign document'}
-          </span>
-        </div>
-      </div>
-
-      {/* Main Content Area Based on Chosen Layout */}
+      {/* Main Content Area: Default Bento Layout */}
       <main className="flex-1">
         {layoutMode === 'compact' && (
           <CompactExecutiveView

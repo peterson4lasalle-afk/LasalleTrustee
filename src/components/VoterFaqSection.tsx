@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { VOTER_FAQS } from '../data/campaignData';
-import { HelpCircle, ChevronDown, CheckCircle2, Calendar, Vote, Info, FileQuestion } from 'lucide-react';
+import { HelpCircle, ChevronDown, CheckCircle2, Calendar, Vote, Info, FileQuestion, ExternalLink } from 'lucide-react';
 
 export const VoterFaqSection: React.FC = () => {
   const [openFaqId, setOpenFaqId] = useState<string | null>('faq-1');
@@ -70,6 +70,25 @@ export const VoterFaqSection: React.FC = () => {
             <p className="text-xs text-slate-600 leading-relaxed">
               Both LaSalle and Amherstburg offer advance polling stations and convenient online/telephone voting options during election periods.
             </p>
+          </div>
+        </div>
+
+        {/* LaSalle Voter Info Callout */}
+        <div className="max-w-4xl mx-auto mb-10 p-4 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-start sm:items-center gap-2.5">
+            <Info className="w-4 h-4 text-amber-700 shrink-0 mt-0.5 sm:mt-0" />
+            <span>
+              For information on eligibility and timeline, visit the LaSalle election page here,{' '}
+              <a
+                href="https://www.lasalle.ca/town-hall/lasalle-election/voter-information/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-bold underline text-amber-950 hover:text-amber-800 break-all inline-flex items-center gap-0.5"
+              >
+                https://www.lasalle.ca/town-hall/lasalle-election/voter-information/
+                <ExternalLink className="w-3 h-3 inline-block shrink-0 ml-0.5" />
+              </a>
+            </span>
           </div>
         </div>
 

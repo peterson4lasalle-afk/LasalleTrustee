@@ -116,43 +116,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   return (
     <>
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs transition-all">
-        {/* Top Civic Information Banner */}
-        <div className="bg-gecdsb-950 text-slate-200 text-xs py-1.5 px-4 sm:px-6 border-b border-gecdsb-900">
-          <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
-            <div className="flex items-center gap-2">
-              <span className="inline-flex items-center gap-1 font-semibold text-amber-400">
-                <Shield className="w-3.5 h-3.5" />
-                Greater Essex County District School Board
-              </span>
-              <span className="hidden md:inline text-slate-500">•</span>
-              <span className="hidden md:inline text-slate-300 font-medium">
-                Peterson for Trustee • <strong className="text-white">{candidate.riding}</strong>
-              </span>
-            </div>
-            <div className="flex items-center gap-3 text-xs">
-              <button
-                id="header-platform-summary-btn"
-                onClick={onOpenPrintable}
-                className="inline-flex items-center gap-1 text-slate-300 hover:text-white transition-colors cursor-pointer"
-                title="View & print 1-page campaign platform"
-              >
-                <FileText className="w-3 h-3 text-amber-400" />
-                <span>1-Page Flyer</span>
-              </button>
-              <span className="text-gecdsb-800">|</span>
-              <button
-                id="header-edit-details-btn"
-                onClick={onOpenCustomizer}
-                className="inline-flex items-center gap-1 text-slate-300 hover:text-amber-300 transition-colors cursor-pointer"
-                title="Customize candidate details"
-              >
-                <Settings2 className="w-3 h-3 text-amber-400" />
-                <span>Edit Profile</span>
-              </button>
-            </div>
-          </div>
-        </div>
-
         {/* Main Navbar */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 bg-white">
           <div className="flex items-center justify-between h-17 sm:h-18">
@@ -207,8 +170,28 @@ export const Navbar: React.FC<NavbarProps> = ({
               ))}
             </nav>
 
-            {/* Desktop Connect Button */}
-            <div className="hidden lg:flex items-center">
+            {/* Desktop Action Buttons */}
+            <div className="hidden lg:flex items-center gap-2">
+              <button
+                id="header-platform-summary-btn"
+                onClick={onOpenPrintable}
+                className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-semibold text-slate-700 hover:text-gecdsb hover:bg-slate-100 rounded-lg border border-slate-200 transition-colors cursor-pointer"
+                title="View & print 1-page campaign platform"
+              >
+                <FileText className="w-3.5 h-3.5 text-amber-500" />
+                <span>1-Page Flyer</span>
+              </button>
+
+              <button
+                id="header-edit-details-btn"
+                onClick={onOpenCustomizer}
+                className="inline-flex items-center justify-center p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg border border-slate-200 transition-colors cursor-pointer"
+                title="Customize candidate details"
+                aria-label="Customize candidate details"
+              >
+                <Settings2 className="w-4 h-4 text-slate-600" />
+              </button>
+
               <a
                 id="desktop-connect-btn"
                 href="#get-involved"
@@ -224,7 +207,16 @@ export const Navbar: React.FC<NavbarProps> = ({
             </div>
 
             {/* Mobile Menu Hamburger Button */}
-            <div className="flex lg:hidden items-center gap-1.5">
+            <div className="flex lg:hidden items-center gap-2">
+              <button
+                id="mobile-header-flyer-btn"
+                onClick={onOpenPrintable}
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 text-xs font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg border border-slate-200 transition-colors"
+                title="Print Flyer"
+              >
+                <FileText className="w-3.5 h-3.5 text-amber-500" />
+                <span className="hidden sm:inline">Flyer</span>
+              </button>
               <button
                 id="mobile-menu-toggle-btn"
                 onClick={() => setMobileDrawerOpen(true)}

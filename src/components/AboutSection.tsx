@@ -37,11 +37,11 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ candidate, onOpenCus
               <div className="p-7 sm:p-8 bg-gradient-to-br from-gecdsb-950 via-gecdsb-900 to-gecdsb-950 text-white text-center relative">
                 <div className="relative inline-block mx-auto mb-4">
                   <img
-                    src={candidate.photoUrl || "/candidate-headshot.jpg"}
+                    src={candidate.photoUrl || "./candidate-headshot.jpg"}
                     alt={candidate.fullName}
                     className="w-28 h-28 sm:w-32 sm:h-32 rounded-full object-cover object-top border-4 border-amber-400 shadow-xl mx-auto"
                     onError={(e) => {
-                      (e.currentTarget as HTMLImageElement).src = '/candidate-headshot.jpg';
+                      (e.currentTarget as HTMLImageElement).src = './candidate-headshot.jpg';
                     }}
                     referrerPolicy="no-referrer"
                   />

@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  --color-gecdsb: #005961;
+  --color-gecdsb-50: #f0f7f8;
+  --color-gecdsb-100: #d6ebed;
+  --color-gecdsb-200: #b0d9dc;
+  --color-gecdsb-300: #7ec1c7;
+  --color-gecdsb-400: #42a4ad;
+  --color-gecdsb-500: #1d8892;
+  --color-gecdsb-600: #005961;
+  --color-gecdsb-700: #004c53;
+  --color-gecdsb-800: #003d43;
+  --color-gecdsb-900: #002a2e;
+  --color-gecdsb-950: #001b1e;
+}
+
+@layer base {
+  body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  h1, h2, h3, .font-serif {
+    font-family: 'Newsreader', 'Georgia', Cambria, serif;
+  }
+}
+
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+}
+

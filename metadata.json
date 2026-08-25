@@ -1,0 +1,8 @@
+{
+  "name": "A Peterson for Trustee",
+  "description": "Peterson for Trustee - Official campaign website for Greater Essex County District School Board representing the Town of LaSalle and the Town of Amherstburg.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

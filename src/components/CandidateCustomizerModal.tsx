@@ -149,7 +149,7 @@ export const CandidateCustomizerModal: React.FC<CandidateCustomizerModalProps> =
               {formData.photoUrl && (
                 <button
                   type="button"
-                  onClick={() => setFormData({ ...formData, photoUrl: '/candidate-headshot.jpg' })}
+                  onClick={() => setFormData({ ...formData, photoUrl: './candidate-headshot.jpg' })}
                   className="text-[11px] text-gecdsb hover:underline cursor-pointer"
                 >
                   Reset Default Photo
@@ -160,11 +160,11 @@ export const CandidateCustomizerModal: React.FC<CandidateCustomizerModalProps> =
             <div className="flex items-center gap-4">
               <div className="relative">
                 <img
-                  src={formData.photoUrl || '/candidate-headshot.jpg'}
+                  src={formData.photoUrl || './candidate-headshot.jpg'}
                   alt="Candidate preview"
                   className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover object-top border-2 border-amber-400 shadow-sm shrink-0 bg-slate-200"
                   onError={(e) => {
-                    (e.currentTarget as HTMLImageElement).src = '/candidate-headshot.jpg';
+                    (e.currentTarget as HTMLImageElement).src = './candidate-headshot.jpg';
                   }}
                   referrerPolicy="no-referrer"
                 />

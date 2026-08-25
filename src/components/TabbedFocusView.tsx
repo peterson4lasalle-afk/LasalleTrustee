@@ -72,11 +72,11 @@ export const TabbedFocusView: React.FC<TabbedFocusViewProps> = ({
       <div className="rounded-2xl bg-gecdsb-950 text-white p-5 sm:p-6 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-5 border border-gecdsb-800">
         <div className="flex items-center gap-4">
           <img
-            src={candidate.photoUrl || "/candidate-headshot.jpg"}
+            src={candidate.photoUrl || "./candidate-headshot.jpg"}
             alt={candidate.fullName}
             className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover object-top border-2 border-amber-400 shadow-lg shrink-0"
             onError={(e) => {
-              (e.currentTarget as HTMLImageElement).src = '/candidate-headshot.jpg';
+              (e.currentTarget as HTMLImageElement).src = './candidate-headshot.jpg';
             }}
             referrerPolicy="no-referrer"
           />
@@ -246,11 +246,11 @@ export const TabbedFocusView: React.FC<TabbedFocusViewProps> = ({
             {/* Photo & Intro Duo */}
             <div className="flex flex-col sm:flex-row gap-4 sm:items-center p-3.5 rounded-xl bg-slate-50 border border-slate-200">
               <img
-                src={candidate.photoUrl || "/candidate-headshot.jpg"}
+                src={candidate.photoUrl || "./candidate-headshot.jpg"}
                 alt={candidate.fullName}
                 className="w-24 h-28 sm:w-28 sm:h-32 rounded-xl object-cover object-top border-2 border-amber-400 shadow-sm shrink-0"
                 onError={(e) => {
-                  (e.currentTarget as HTMLImageElement).src = '/candidate-headshot.jpg';
+                  (e.currentTarget as HTMLImageElement).src = './candidate-headshot.jpg';
                 }}
                 referrerPolicy="no-referrer"
               />

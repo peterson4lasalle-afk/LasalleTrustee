@@ -78,7 +78,7 @@ export const Footer: React.FC<FooterProps> = ({ candidate, onOpenPrintable }) =>
                 onClick={onOpenPrintable}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs transition-colors cursor-pointer"
               >
-                <span>Download / Print 1-Page Summary →</span>
+                <span>Download / Print Event Flyer & Platform →</span>
               </button>
               <button
                 onClick={scrollToTop}

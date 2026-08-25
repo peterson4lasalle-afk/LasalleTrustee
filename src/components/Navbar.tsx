@@ -182,16 +182,6 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <span>1-Page Flyer</span>
               </button>
 
-              <button
-                id="header-edit-details-btn"
-                onClick={onOpenCustomizer}
-                className="inline-flex items-center justify-center p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-100 rounded-lg border border-slate-200 transition-colors cursor-pointer"
-                title="Customize candidate details"
-                aria-label="Customize candidate details"
-              >
-                <Settings2 className="w-4 h-4 text-slate-600" />
-              </button>
-
               <a
                 id="desktop-connect-btn"
                 href="#get-involved"
@@ -445,24 +435,12 @@ export const Navbar: React.FC<NavbarProps> = ({
                 </div>
               </div>
 
-              {/* Drawer Bottom Bar with Settings & Close */}
-              <div className="p-3 bg-slate-100 border-t border-slate-200 flex items-center justify-between gap-2 shrink-0">
-                <button
-                  id="mobile-drawer-customize-btn"
-                  onClick={() => {
-                    setMobileDrawerOpen(false);
-                    onOpenCustomizer();
-                  }}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-700 hover:text-slate-900 bg-white hover:bg-slate-50 border border-slate-300 rounded-lg transition-colors"
-                >
-                  <Settings2 className="w-3.5 h-3.5 text-slate-600" />
-                  <span>Customize Info</span>
-                </button>
-
+              {/* Drawer Bottom Bar with Close */}
+              <div className="p-3 bg-slate-100 border-t border-slate-200 flex items-center justify-end shrink-0">
                 <button
                   id="mobile-drawer-bottom-close-btn"
                   onClick={() => setMobileDrawerOpen(false)}
-                  className="px-4 py-1.5 text-xs font-bold text-white bg-gecdsb-900 hover:bg-gecdsb-800 rounded-lg transition-colors"
+                  className="w-full sm:w-auto px-4 py-2 text-xs font-bold text-white bg-gecdsb-900 hover:bg-gecdsb-800 rounded-lg transition-colors text-center"
                 >
                   Close Menu
                 </button>

@@ -16,10 +16,10 @@ export const Footer: React.FC<FooterProps> = ({ candidate, onOpenPrintable }) =>
     <footer className="bg-slate-950 text-slate-400 text-sm border-t border-slate-800">
       {/* Upper Footer */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-8 lg:gap-12 items-center justify-between">
           
           {/* Brand & Mission Column */}
-          <div className="md:col-span-5 space-y-4">
+          <div className="md:col-span-6 space-y-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-lg bg-gecdsb text-white flex items-center justify-center font-serif font-bold text-xl border border-gecdsb-700">
                 {candidate.preferredName ? candidate.preferredName[0] : 'A'}
@@ -34,7 +34,7 @@ export const Footer: React.FC<FooterProps> = ({ candidate, onOpenPrintable }) =>
               </div>
             </div>
 
-            <p className="text-xs text-slate-400 leading-relaxed max-w-sm">
+            <p className="text-xs text-slate-400 leading-relaxed max-w-md">
               Dedicated to student achievement, collaborative school board governance, and transparent fiscal responsibility across all public schools in the {candidate.riding}.
             </p>
 
@@ -50,8 +50,8 @@ export const Footer: React.FC<FooterProps> = ({ candidate, onOpenPrintable }) =>
             </div>
           </div>
 
-          {/* Platform Pillars Links */}
-          <div className="md:col-span-4 space-y-3">
+          {/* Platform Pillars Links & Actions */}
+          <div className="md:col-span-6 space-y-3 md:pl-6">
             <h4 className="font-serif font-bold text-white text-sm uppercase tracking-wider">
               Platform Framework
             </h4>
@@ -71,31 +71,15 @@ export const Footer: React.FC<FooterProps> = ({ candidate, onOpenPrintable }) =>
                   <strong className="text-slate-200">Pillar 3:</strong> Transparency and Responsibility (Fiscal Care & Town Halls)
                 </a>
               </li>
-              <li className="pt-2">
-                <button
-                  onClick={onOpenPrintable}
-                  className="text-amber-400 hover:text-amber-300 font-bold underline cursor-pointer"
-                >
-                  Download / Print 1-Page Summary →
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Quick Navigation & Voting */}
-          <div className="md:col-span-3 space-y-3">
-            <h4 className="font-serif font-bold text-white text-sm uppercase tracking-wider">
-              Quick Navigation
-            </h4>
-            <ul className="space-y-2 text-xs">
-              <li><a href="#why-running" className="hover:text-white transition-colors">Why I Am Running</a></li>
-              <li><a href="#about" className="hover:text-white transition-colors">About the Candidate</a></li>
-              <li><a href="#schools" className="hover:text-white transition-colors">Our LaSalle & Amherstburg Schools</a></li>
-              <li><a href="#faq" className="hover:text-white transition-colors">Voter Information & FAQ</a></li>
-              <li><a href="#get-involved" className="hover:text-white transition-colors">Volunteer & Connect</a></li>
             </ul>
 
-            <div className="pt-3">
+            <div className="pt-3 flex flex-wrap items-center gap-3">
+              <button
+                onClick={onOpenPrintable}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs transition-colors cursor-pointer"
+              >
+                <span>Download / Print 1-Page Summary →</span>
+              </button>
               <button
                 onClick={scrollToTop}
                 className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white text-xs border border-slate-800 transition-colors cursor-pointer"

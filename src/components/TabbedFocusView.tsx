@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { CandidateProfile, EngagementFormData } from '../types';
-import { LOCAL_SCHOOLS, VOTER_FAQS } from '../data/campaignData';
+import { CAMPAIGN_PILLARS, LOCAL_SCHOOLS, VOTER_FAQS } from '../data/campaignData';
 import {
+  GraduationCap,
   Users,
   ShieldCheck,
   CheckCircle2,
@@ -32,7 +33,8 @@ export const TabbedFocusView: React.FC<TabbedFocusViewProps> = ({
   onOpenPrintable,
   onOpenCustomizer,
 }) => {
-  const [activeTab, setActiveTab] = useState<'about' | 'schools' | 'faq'>('about');
+  const [activeTab, setActiveTab] = useState<'platform' | 'about' | 'schools' | 'faq'>('platform');
+  const [selectedPillarIndex, setSelectedPillarIndex] = useState(0);
   const [selectedMun, setSelectedMun] = useState<'All' | 'LaSalle' | 'Amherstburg'>('All');
   const [openFaq, setOpenFaq] = useState<string | null>(null);
 
@@ -51,6 +53,7 @@ export const TabbedFocusView: React.FC<TabbedFocusViewProps> = ({
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
 
+  const activePillar = CAMPAIGN_PILLARS[selectedPillarIndex];
   const filteredSchools = selectedMun === 'All'
     ? LOCAL_SCHOOLS
     : LOCAL_SCHOOLS.filter((s) => s.municipality === selectedMun);
@@ -64,6 +67,163 @@ export const TabbedFocusView: React.FC<TabbedFocusViewProps> = ({
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 py-6 space-y-6">
+      
+      {/* Top Concise Candidate Strip with Headshot */}
+      <div className="rounded-2xl bg-gecdsb-950 text-white p-5 sm:p-6 shadow-md flex flex-col md:flex-row md:items-center justify-between gap-5 border border-gecdsb-800">
+        <div className="flex items-center gap-4">
+          <img
+            src={candidate.photoUrl || "/candidate-headshot.jpg"}
+            alt={candidate.fullName}
+            className="w-16 h-16 sm:w-20 sm:h-20 rounded-2xl object-cover object-top border-2 border-amber-400 shadow-lg shrink-0"
+            onError={(e) => {
+              (e.currentTarget as HTMLImageElement).src = '/candidate-headshot.jpg';
+            }}
+            referrerPolicy="no-referrer"
+          />
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-gecdsb-800 text-amber-300 text-[11px] font-bold">
+              <MapPin className="w-3 h-3" />
+              Peterson for Trustee • {candidate.riding}
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-serif font-bold text-white">
+              {candidate.fullName}
+            </h1>
+            <p className="text-xs sm:text-sm text-gecdsb-100 italic">
+              "{candidate.slogan}"
+            </p>
+          </div>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2 self-start md:self-center">
+          <button
+            onClick={onOpenPrintable}
+            className="px-3.5 py-2 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
+          >
+            <FileText className="w-3.5 h-3.5" />
+            <span>Platform PDF</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('faq')}
+            className="px-3.5 py-2 rounded-lg bg-gecdsb hover:bg-gecdsb-800 text-white font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
+          >
+            <Mail className="w-3.5 h-3.5 text-amber-300" />
+            <span>Contact Candidate</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Primary Tab Navigation Selector */}
+      <div className="flex border-b border-slate-200 gap-2 overflow-x-auto pb-1 text-sm font-semibold">
+        <button
+          onClick={() => setActiveTab('platform')}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-t-xl border-b-2 transition-colors cursor-pointer whitespace-nowrap ${
+            activeTab === 'platform'
+              ? 'border-gecdsb text-gecdsb bg-gecdsb-50/70 font-bold'
+              : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+          }`}
+        >
+          <GraduationCap className="w-4 h-4" />
+          <span>3-Pillar Platform</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('about')}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-t-xl border-b-2 transition-colors cursor-pointer whitespace-nowrap ${
+            activeTab === 'about'
+              ? 'border-gecdsb text-gecdsb bg-gecdsb-50/70 font-bold'
+              : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+          }`}
+        >
+          <User className="w-4 h-4" />
+          <span>About Me & Why I Am Running</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('schools')}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-t-xl border-b-2 transition-colors cursor-pointer whitespace-nowrap ${
+            activeTab === 'schools'
+              ? 'border-gecdsb text-gecdsb bg-gecdsb-50/70 font-bold'
+              : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+          }`}
+        >
+          <School className="w-4 h-4" />
+          <span>Our Schools ({LOCAL_SCHOOLS.length})</span>
+        </button>
+
+        <button
+          onClick={() => setActiveTab('faq')}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-t-xl border-b-2 transition-colors cursor-pointer whitespace-nowrap ${
+            activeTab === 'faq'
+              ? 'border-gecdsb text-gecdsb bg-gecdsb-50/70 font-bold'
+              : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+          }`}
+        >
+          <HelpCircle className="w-4 h-4" />
+          <span>Voter FAQ & Contact</span>
+        </button>
+      </div>
+
+      {/* TAB CONTENT 1: PLATFORM */}
+      {activeTab === 'platform' && (
+        <div className="space-y-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+            {CAMPAIGN_PILLARS.map((p, i) => (
+              <button
+                key={p.id}
+                onClick={() => setSelectedPillarIndex(i)}
+                className={`p-4 rounded-xl text-left border transition-all cursor-pointer ${
+                  selectedPillarIndex === i
+                    ? 'bg-gecdsb text-white border-gecdsb shadow-md'
+                    : 'bg-white text-slate-900 hover:bg-slate-50 border-slate-200'
+                }`}
+              >
+                <div className="text-xs font-bold uppercase tracking-wider mb-1 opacity-80">
+                  Pillar {p.number}
+                </div>
+                <h3 className="font-bold text-base leading-snug">{p.title}</h3>
+                <p className={`text-xs mt-1 line-clamp-2 ${selectedPillarIndex === i ? 'text-gecdsb-100' : 'text-slate-500'}`}>
+                  {p.tagline}
+                </p>
+              </button>
+            ))}
+          </div>
+
+          <div className="rounded-2xl bg-white border border-slate-200 p-6 shadow-xs space-y-4">
+            <div className="border-b border-slate-100 pb-3 flex items-center justify-between">
+              <div>
+                <span className="text-xs font-bold uppercase text-gecdsb tracking-wider">
+                  Detailed Commitments
+                </span>
+                <h2 className="text-xl font-serif font-bold text-slate-900">
+                  Pillar {activePillar.number}: {activePillar.title}
+                </h2>
+              </div>
+              <span className="px-3 py-1 rounded-full bg-gecdsb-100 text-gecdsb-900 text-xs font-bold">
+                {activePillar.badge}
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              {activePillar.subPillars.map((sub, idx) => (
+                <div key={idx} className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3 flex flex-col justify-start">
+                  <div className="space-y-2">
+                    <h4 className="font-bold text-sm text-slate-900 flex items-center gap-1.5">
+                      <span className="w-5 h-5 rounded-full bg-gecdsb text-white text-xs flex items-center justify-center font-bold">
+                        {idx + 1}
+                      </span>
+                      {sub.title}
+                    </h4>
+                    <p className="text-xs text-slate-600 leading-relaxed">
+                      {sub.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* TAB CONTENT 2: ABOUT ME & WHY I AM RUNNING */}
       {activeTab === 'about' && (
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
@@ -138,6 +298,11 @@ export const TabbedFocusView: React.FC<TabbedFocusViewProps> = ({
                 </p>
               </div>
 
+              <div className="pt-3 border-t border-gecdsb-800 space-y-1.5 text-xs text-gecdsb-200">
+                <div><strong className="text-white">Email:</strong> {candidate.email}</div>
+                <div><strong className="text-white">Riding:</strong> {candidate.riding}</div>
+                <div><strong className="text-white">School Board:</strong> Greater Essex County District School Board</div>
+              </div>
             </div>
 
             <button
@@ -317,86 +482,6 @@ export const TabbedFocusView: React.FC<TabbedFocusViewProps> = ({
           </div>
         </div>
       )}
-
-      {/* Primary Tab Navigation Selector (Bottom) */}
-      <div className="rounded-2xl bg-white border border-slate-200 p-2 shadow-xs flex items-center justify-between gap-2 overflow-x-auto text-sm font-semibold">
-        <button
-          onClick={() => {
-            setActiveTab('about');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
-            activeTab === 'about'
-              ? 'bg-gecdsb text-white font-bold shadow-xs'
-              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-          }`}
-        >
-          <User className="w-4 h-4" />
-          <span>About Me</span>
-        </button>
-
-        <button
-          onClick={() => {
-            setActiveTab('schools');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
-            activeTab === 'schools'
-              ? 'bg-gecdsb text-white font-bold shadow-xs'
-              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-          }`}
-        >
-          <School className="w-4 h-4" />
-          <span>Our Schools ({LOCAL_SCHOOLS.length})</span>
-        </button>
-
-        <button
-          onClick={() => {
-            setActiveTab('faq');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-          }}
-          className={`flex-1 flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl transition-all cursor-pointer whitespace-nowrap ${
-            activeTab === 'faq'
-              ? 'bg-gecdsb text-white font-bold shadow-xs'
-              : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100'
-          }`}
-        >
-          <HelpCircle className="w-4 h-4" />
-          <span>Voter FAQ & Contact</span>
-        </button>
-      </div>
-
-      {/* Bottom Connect & Action Strip */}
-      <div className="rounded-2xl bg-white border border-slate-200 p-4 sm:p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div className="space-y-0.5">
-          <div className="text-xs font-bold uppercase tracking-wider text-gecdsb">
-            Connect & Support
-          </div>
-          <p className="text-sm font-semibold text-slate-800">
-            Have questions or want to reach Adam Peterson directly?
-          </p>
-        </div>
-
-        <div className="flex flex-wrap items-center gap-2.5">
-          <button
-            onClick={onOpenPrintable}
-            className="px-3.5 py-2 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer"
-          >
-            <FileText className="w-3.5 h-3.5" />
-            <span>Platform PDF</span>
-          </button>
-          <button
-            onClick={() => {
-              setActiveTab('faq');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            className="px-4 py-2 rounded-lg bg-gecdsb hover:bg-gecdsb-800 text-white font-bold text-xs flex items-center gap-1.5 transition-colors cursor-pointer shadow-xs"
-          >
-            <Mail className="w-3.5 h-3.5 text-amber-300" />
-            <span>Connect & Contact Candidate</span>
-          </button>
-        </div>
-      </div>
 
     </div>
   );

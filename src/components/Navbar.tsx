@@ -125,7 +125,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               href="#hero"
               className="flex items-center gap-2.5 sm:gap-3 group focus:outline-hidden focus:ring-2 focus:ring-gecdsb rounded-lg p-1"
             >
-              {candidate.photoUrl ? (
+              /* {candidate.photoUrl ? (
                 <img
                   src={candidate.photoUrl}
                   alt={candidate.fullName}
@@ -136,7 +136,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                 <div className="w-10 h-10 rounded-lg bg-gecdsb text-white flex items-center justify-center font-serif font-bold text-xl shadow-xs border border-gecdsb-700 group-hover:bg-gecdsb-700 transition-colors">
                   {candidate.preferredName ? candidate.preferredName[0] : 'P'}
                 </div>
-              )}
+              )} */
+              
               <div className="flex flex-col">
                 <div className="flex items-center gap-1.5">
                   <span className="font-serif font-bold text-slate-900 text-base sm:text-lg tracking-tight">

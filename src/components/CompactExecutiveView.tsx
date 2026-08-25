@@ -59,11 +59,11 @@ export const CompactExecutiveView: React.FC<CompactExecutiveViewProps> = ({
 
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 pt-1">
             <img
-              src={candidate.photoUrl || "/candidate-headshot.jpg"}
+              src={candidate.photoUrl || "./candidate-headshot.jpg"}
               alt={candidate.fullName}
               className="w-24 h-24 sm:w-28 sm:h-28 rounded-2xl object-cover object-top border-2 border-amber-400 shadow-md shrink-0"
               onError={(e) => {
-                (e.currentTarget as HTMLImageElement).src = '/candidate-headshot.jpg';
+                (e.currentTarget as HTMLImageElement).src = './candidate-headshot.jpg';
               }}
               referrerPolicy="no-referrer"
             />

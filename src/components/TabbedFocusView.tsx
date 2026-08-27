@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CandidateProfile, EngagementFormData } from '../types';
+import { CandidateProfile, EngagementFormData, Pillar, SchoolInfo, FaqItem, EditorTabId } from '../types';
 import { CAMPAIGN_PILLARS, LOCAL_SCHOOLS, VOTER_FAQS } from '../data/campaignData';
 import {
   GraduationCap,
@@ -19,21 +19,28 @@ import {
   ChevronRight,
   BookOpen,
   Briefcase,
-  Compass
+  Compass,
+  Edit3
 } from 'lucide-react';
 
 interface TabbedFocusViewProps {
   candidate: CandidateProfile;
+  pillars?: Pillar[];
+  schools?: SchoolInfo[];
+  faqs?: FaqItem[];
   onOpenPrintable: () => void;
-  onOpenCustomizer: () => void;
+  onOpenCustomizer: (initialTab?: EditorTabId) => void;
 }
 
 export const TabbedFocusView: React.FC<TabbedFocusViewProps> = ({
   candidate,
+  pillars = CAMPAIGN_PILLARS,
+  schools = LOCAL_SCHOOLS,
+  faqs = VOTER_FAQS,
   onOpenPrintable,
   onOpenCustomizer,
 }) => {
-  const [activeTab, setActiveTab] = useState<'platform' | 'about' | 'schools' | 'faq'>('platform');
+  const [activeTab, setActiveTab] = useState<'about' | 'platform' | 'schools' | 'faq'>('about');
   const [selectedPillarIndex, setSelectedPillarIndex] = useState(0);
   const [selectedMun, setSelectedMun] = useState<'All' | 'LaSalle' | 'Amherstburg'>('All');
   const [openFaq, setOpenFaq] = useState<string | null>(null);
@@ -53,10 +60,10 @@ export const TabbedFocusView: React.FC<TabbedFocusViewProps> = ({
   });
   const [formSubmitted, setFormSubmitted] = useState(false);
 
-  const activePillar = CAMPAIGN_PILLARS[selectedPillarIndex];
+  const activePillar = pillars[selectedPillarIndex] || pillars[0];
   const filteredSchools = selectedMun === 'All'
-    ? LOCAL_SCHOOLS
-    : LOCAL_SCHOOLS.filter((s) => s.municipality === selectedMun);
+    ? schools
+    : schools.filter((s) => s.municipality === selectedMun);
 
   const handleFormSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -115,18 +122,6 @@ export const TabbedFocusView: React.FC<TabbedFocusViewProps> = ({
       {/* Primary Tab Navigation Selector */}
       <div className="flex border-b border-slate-200 gap-2 overflow-x-auto pb-1 text-sm font-semibold">
         <button
-          onClick={() => setActiveTab('platform')}
-          className={`flex items-center gap-2 px-4 py-2.5 rounded-t-xl border-b-2 transition-colors cursor-pointer whitespace-nowrap ${
-            activeTab === 'platform'
-              ? 'border-gecdsb text-gecdsb bg-gecdsb-50/70 font-bold'
-              : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-50'
-          }`}
-        >
-          <GraduationCap className="w-4 h-4" />
-          <span>3-Pillar Platform</span>
-        </button>
-
-        <button
           onClick={() => setActiveTab('about')}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-t-xl border-b-2 transition-colors cursor-pointer whitespace-nowrap ${
             activeTab === 'about'
@@ -139,6 +134,18 @@ export const TabbedFocusView: React.FC<TabbedFocusViewProps> = ({
         </button>
 
         <button
+          onClick={() => setActiveTab('platform')}
+          className={`flex items-center gap-2 px-4 py-2.5 rounded-t-xl border-b-2 transition-colors cursor-pointer whitespace-nowrap ${
+            activeTab === 'platform'
+              ? 'border-gecdsb text-gecdsb bg-gecdsb-50/70 font-bold'
+              : 'border-transparent text-slate-600 hover:text-slate-900 hover:bg-slate-50'
+          }`}
+        >
+          <GraduationCap className="w-4 h-4" />
+          <span>3-Pillar Platform</span>
+        </button>
+
+        <button
           onClick={() => setActiveTab('schools')}
           className={`flex items-center gap-2 px-4 py-2.5 rounded-t-xl border-b-2 transition-colors cursor-pointer whitespace-nowrap ${
             activeTab === 'schools'
@@ -147,7 +154,7 @@ export const TabbedFocusView: React.FC<TabbedFocusViewProps> = ({
           }`}
         >
           <School className="w-4 h-4" />
-          <span>Our Schools ({LOCAL_SCHOOLS.length})</span>
+          <span>Our Schools ({schools.length})</span>
         </button>
 
         <button
@@ -167,9 +174,9 @@ export const TabbedFocusView: React.FC<TabbedFocusViewProps> = ({
       {activeTab === 'platform' && (
         <div className="space-y-5">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-            {CAMPAIGN_PILLARS.map((p, i) => (
+            {pillars.map((p, i) => (
               <button
-                key={p.id}
+                key={p.id || i}
                 onClick={() => setSelectedPillarIndex(i)}
                 className={`p-4 rounded-xl text-left border transition-all cursor-pointer ${
                   selectedPillarIndex === i
@@ -178,7 +185,7 @@ export const TabbedFocusView: React.FC<TabbedFocusViewProps> = ({
                 }`}
               >
                 <div className="text-xs font-bold uppercase tracking-wider mb-1 opacity-80">
-                  Pillar {p.number}
+                  Pillar {p.number || i + 1}
                 </div>
                 <h3 className="font-bold text-base leading-snug">{p.title}</h3>
                 <p className={`text-xs mt-1 line-clamp-2 ${selectedPillarIndex === i ? 'text-gecdsb-100' : 'text-slate-500'}`}>
@@ -459,7 +466,7 @@ export const TabbedFocusView: React.FC<TabbedFocusViewProps> = ({
               Voter Frequently Asked Questions
             </h3>
             <div className="space-y-2 text-xs">
-              {VOTER_FAQS.map((faq) => {
+              {faqs.map((faq) => {
                 const isOpen = openFaq === faq.id;
                 return (
                   <div key={faq.id} className="rounded-lg border border-slate-200 overflow-hidden bg-slate-50/60">

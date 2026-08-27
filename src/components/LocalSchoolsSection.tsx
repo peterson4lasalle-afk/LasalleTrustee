@@ -1,12 +1,19 @@
 import React, { useState } from 'react';
+import { SchoolInfo } from '../types';
 import { LOCAL_SCHOOLS } from '../data/campaignData';
 import { School, MapPin, Sparkles, Filter, Bus, BookCheck, ShieldAlert, Cpu } from 'lucide-react';
 
-export const LocalSchoolsSection: React.FC = () => {
+interface LocalSchoolsSectionProps {
+  schools?: SchoolInfo[];
+}
+
+export const LocalSchoolsSection: React.FC<LocalSchoolsSectionProps> = ({
+  schools = LOCAL_SCHOOLS,
+}) => {
   const [filterMunicipality, setFilterMunicipality] = useState<'All' | 'LaSalle' | 'Amherstburg'>('All');
   const [filterType, setFilterType] = useState<'All' | 'Elementary' | 'Secondary'>('All');
 
-  const filteredSchools = LOCAL_SCHOOLS.filter((school) => {
+  const filteredSchools = schools.filter((school) => {
     const matchesMun = filterMunicipality === 'All' || school.municipality === filterMunicipality;
     const matchesType = filterType === 'All' || school.type === filterType;
     return matchesMun && matchesType;

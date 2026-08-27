@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
+import { FaqItem } from '../types';
 import { VOTER_FAQS } from '../data/campaignData';
 import { HelpCircle, ChevronDown, CheckCircle2, Calendar, Vote, Info, FileQuestion, ExternalLink } from 'lucide-react';
 
-export const VoterFaqSection: React.FC = () => {
+interface VoterFaqSectionProps {
+  faqs?: FaqItem[];
+}
+
+export const VoterFaqSection: React.FC<VoterFaqSectionProps> = ({
+  faqs = VOTER_FAQS,
+}) => {
   const [openFaqId, setOpenFaqId] = useState<string | null>('faq-1');
   const [selectedCategory, setSelectedCategory] = useState<string>('All');
 
   const categories = ['All', 'Governance & Budget', 'Academics & Well-Being', 'Local Riding', 'Voting & Election'];
 
   const filteredFaqs = selectedCategory === 'All'
-    ? VOTER_FAQS
-    : VOTER_FAQS.filter((f) => f.category === selectedCategory);
+    ? faqs
+    : faqs.filter((f) => f.category === selectedCategory);
 
   const toggleFaq = (id: string) => {
     setOpenFaqId(openFaqId === id ? null : id);

@@ -10,17 +10,18 @@ export const INITIAL_CANDIDATE_PROFILE: CandidateProfile = {
   email: 'Peterson4LaSalle@gmail.com',
   photoUrl: '/candidate-headshot.jpg',
   bioIntro:
-    'Education has always been a central part of my life. I was raised by a teacher, am married to an educator, and have a family dedicated to learning and ongoing development. I see the daily effort it takes to support students and teachers in our community. As a former lecturer at Algonquin and St. Clair College, I’ve experienced teaching firsthand.',
+    'I am a firm believer in the importance of education, and it has always been a core tenet of my life. My background, combined with my professional experience, makes me an ideal candidate for Trustee with the Greater Essex County District School Board.',
   extendedBio: [
-    'Professionally, I’ve worked at all levels of management in both Canada and the United States, and returned to school at 30 to complete an MBA.',
-    'My background and education give me a practical perspective on how to manage resources responsibly and collaborate effectively. I’m running to make student success the priority. The school board needs steady leadership, clear communication, collaborative and supportive environments with a practical focus'
+    "I have been immersed in education my whole life. Raised by a teacher, married to an educator, and now raising two children in the public school system, I see firsthand the daily dedication required to support our students and staff. Having also taught as a professor at two Ontario colleges, I understand the real challenges faced in today's classrooms. I am convinced that student success must be our top priority which is achieved through accountability, collaboration, and transparent communication.",
+    'Beyond the classroom, I bring nearly two decades of professional experience across small businesses and multinational organizations in Ontario and the United States. Throughout my career, I have focused on building strong relationships across all organizational levels and maintaining strict fiscal responsibility.',
+    'My educational and business background provides a practical foundation for managing board resources wisely. I am committed to ensuring the school board keeps student success—both inside and outside the classroom at the forefront of every decision.'
   ],
   credentials: [
-    'Former Lecturer at Algonquin College and St. Clair College',
-    'MBA Graduate with Multi-Level Management Experience (Canada & U.S.)',
-    'Raised by a Teacher & Married to an Educator — Lifelong Dedication to Learning',
-    'Practical Perspective on Responsible Resource Management & Budget Stewardship',
-    'Committed to Collaborative Governance, Clear Communication & Student Success'
+    'Former College Professor at Two Ontario Colleges',
+    'Nearly Two Decades of Professional Management & Business Experience (Ontario & U.S.)',
+    'Raised by a Teacher, Married to an Educator, & Parent of 2 Public School Students',
+    'Practical Foundation in Fiscal Responsibility & Resource Stewardship',
+    'Committed to Student Success, Collaborative Governance & Transparent Accountability'
   ],
   whyRunningHighlights: [
     {
@@ -67,7 +68,7 @@ export const CAMPAIGN_PILLARS: Pillar[] = [
       {
         title: 'Evidence-Based Academics',
         description:
-          'Prioritize board-wide initiatives that boost foundational skills in literacy and STEM, ensuring resources directly target classroom support.',
+          'Prioritize board-wide initiatives that boost foundational skills in literacy and math, ensuring resources directly target support for students and educators.',
         measurableGoal: 'Year-over-year gains in foundational benchmarks with increased direct-to-classroom budget allocation.'
       },
       {
@@ -79,7 +80,7 @@ export const CAMPAIGN_PILLARS: Pillar[] = [
       {
         title: 'Equitable Opportunity',
         description:
-          'Ensure every student across all schools in the district—regardless of background or geographic location—has access to specialized programs, modern technology, and necessary support services.',
+          'Ensure every student has access to specialized programs, modern technology, and necessary support services.',
         measurableGoal: 'Full technology and special education parity between all urban, suburban, and rural GECDSB schools.'
       }
     ]
@@ -104,7 +105,7 @@ export const CAMPAIGN_PILLARS: Pillar[] = [
       {
         title: 'Consensus-Based Governance',
         description:
-          'Focus on finding common ground with fellow trustees to deliver a clear, unified direction for the school board rather than partisan conflict.',
+          'Focus on finding common ground with fellow trustees to deliver a clear, unified direction for the school board rather than conflict.',
         measurableGoal: 'A stable, unified Board of Trustees with productive committee deliberations and reduced procedural gridlock.'
       },
       {
@@ -141,19 +142,19 @@ export const CAMPAIGN_PILLARS: Pillar[] = [
       {
         title: 'Fiscal Stewardship',
         description:
-          'Rigorously review and monitor the annual budget to ensure public funds are allocated efficiently, prioritizing direct classroom investments over administrative overhead.',
+          'Review and monitor the annual budget to ensure public funds are allocated efficiently, prioritizing direct classroom investments over administrative overhead.',
         measurableGoal: 'A balanced, audit-approved budget with an increased proportion allocated directly into classrooms.'
       },
       {
         title: 'Open Community Consultation',
         description:
-          'Engage proactively with parents, students, and community members during the multi-year strategic planning process through accessible town halls and open surveys.',
+          'Engage with parents, students, and community members during the multi-year strategic planning process.',
         measurableGoal: 'Broad public participation in strategic plan updates and timely responses to constituent inquiries.'
       },
       {
         title: 'Clear Policy & Accountability',
         description:
-          'Establish clear metrics to evaluate board policies and report progress on strategic goals openly to the public, upholding high ethical standards and code-of-conduct compliance.',
+          'Evaluate board policies and report progress on strategic goals openly to the public.',
         measurableGoal: '100% public visibility of voting records and annual progress reports on multi-year strategic goals.'
       }
     ]

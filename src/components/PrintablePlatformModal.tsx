@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { CandidateProfile } from '../types';
+import { CandidateProfile, Pillar } from '../types';
 import { CAMPAIGN_PILLARS } from '../data/campaignData';
 import {
   X,
@@ -15,12 +15,14 @@ import {
 
 interface PrintablePlatformModalProps {
   candidate: CandidateProfile;
+  pillars?: Pillar[];
   isOpen: boolean;
   onClose: () => void;
 }
 
 export const PrintablePlatformModal: React.FC<PrintablePlatformModalProps> = ({
   candidate,
+  pillars = CAMPAIGN_PILLARS,
   isOpen,
   onClose,
 }) => {
@@ -82,7 +84,7 @@ export const PrintablePlatformModal: React.FC<PrintablePlatformModalProps> = ({
               <div className="text-center md:text-left">
                 <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-gecdsb-700/80 text-amber-300 text-[11px] font-bold tracking-wider uppercase border border-amber-400/30 mb-1">
                   <Sparkles className="w-3 h-3" />
-                  Greater Essex County District School Board • English Public
+                  Greater Essex County District School Board
                 </div>
                 <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif font-black tracking-tight text-white leading-none">
                   {candidate.fullName}
@@ -144,19 +146,19 @@ export const PrintablePlatformModal: React.FC<PrintablePlatformModalProps> = ({
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1.5 text-xs text-slate-700">
                     <div className="flex items-center gap-1.5 text-[11px]">
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                      <span><strong>College Lecturer</strong> (St. Clair & Algonquin)</span>
+                      <span><strong>College Professor</strong></span>
                     </div>
                     <div className="flex items-center gap-1.5 text-[11px]">
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                      <span><strong>MBA Graduate</strong> (Fiscal Management)</span>
+                      <span><strong>20 Years Experience</strong></span>
                     </div>
                     <div className="flex items-center gap-1.5 text-[11px]">
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                      <span><strong>Educator Family</strong> (Raised & married to teachers)</span>
+                      <span><strong>Educator Family</strong></span>
                     </div>
                     <div className="flex items-center gap-1.5 text-[11px]">
                       <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                      <span><strong>Community Advocate</strong> (LaSalle & Amherstburg)</span>
+                      <span><strong>Public School Parent</strong></span>
                     </div>
                   </div>
                 </div>
@@ -179,85 +181,106 @@ export const PrintablePlatformModal: React.FC<PrintablePlatformModalProps> = ({
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 items-stretch">
                 
                 {/* Pillar 1 Card */}
-                <div className="bg-white rounded-xl border border-gecdsb-200 p-4 shadow-xs flex flex-col justify-between hover:border-gecdsb transition-colors relative overflow-hidden">
-                  <div className="absolute top-0 left-0 right-0 h-1.5 bg-gecdsb"></div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-7 h-7 rounded-lg bg-gecdsb-100 text-gecdsb-800 flex items-center justify-center font-bold text-xs shrink-0">
-                        <GraduationCap className="w-4 h-4" />
+                {pillars[0] && (
+                  <div className="bg-white rounded-xl border border-gecdsb-200 p-4 shadow-xs flex flex-col justify-between hover:border-gecdsb transition-colors relative overflow-hidden">
+                    <div className="absolute top-0 left-0 right-0 h-1.5 bg-gecdsb"></div>
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-7 h-7 rounded-lg bg-gecdsb-100 text-gecdsb-800 flex items-center justify-center font-bold text-xs shrink-0">
+                          <GraduationCap className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <span className="text-[10px] font-black uppercase tracking-wider text-gecdsb block">Pillar 1</span>
+                          <h4 className="font-serif font-bold text-slate-900 text-sm leading-tight">{pillars[0].title}</h4>
+                        </div>
                       </div>
-                      <div>
-                        <span className="text-[10px] font-black uppercase tracking-wider text-gecdsb block">Pillar 1</span>
-                        <h4 className="font-serif font-bold text-slate-900 text-sm leading-tight">Student Success</h4>
-                      </div>
+                      <p className="text-[11px] text-slate-600 italic leading-snug mb-3 pb-2 border-b border-slate-100">
+                        {pillars[0].tagline}
+                      </p>
+                      <ul className="space-y-2.5 text-xs text-slate-800">
+                        {pillars[0].subPillars.map((sub, i) => (
+                          <li key={i} className="space-y-0.5">
+                            <div className="flex items-center gap-1.5 font-bold text-slate-900 text-[11px]">
+                              <span className="w-1.5 h-1.5 rounded-full bg-gecdsb shrink-0"></span>
+                              <span>{sub.title}</span>
+                            </div>
+                            <p className="text-[10.5px] text-slate-600 leading-tight pl-3">
+                              {sub.description}
+                            </p>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <p className="text-[11px] text-slate-600 italic leading-snug mb-3 pb-2 border-b border-slate-100">
-                      {CAMPAIGN_PILLARS[0].tagline}
-                    </p>
-                    <ul className="space-y-2 text-xs text-slate-800 font-semibold">
-                      {CAMPAIGN_PILLARS[0].subPillars.map((sub, i) => (
-                        <li key={i} className="flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full bg-gecdsb shrink-0"></span>
-                          <span>{sub.title}</span>
-                        </li>
-                      ))}
-                    </ul>
                   </div>
-                </div>
+                )}
 
                 {/* Pillar 2 Card */}
-                <div className="bg-white rounded-xl border border-emerald-200 p-4 shadow-xs flex flex-col justify-between hover:border-emerald-500 transition-colors relative overflow-hidden">
-                  <div className="absolute top-0 left-0 right-0 h-1.5 bg-emerald-600"></div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-xs shrink-0">
-                        <Users className="w-4 h-4" />
+                {pillars[1] && (
+                  <div className="bg-white rounded-xl border border-emerald-200 p-4 shadow-xs flex flex-col justify-between hover:border-emerald-500 transition-colors relative overflow-hidden">
+                    <div className="absolute top-0 left-0 right-0 h-1.5 bg-emerald-600"></div>
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-7 h-7 rounded-lg bg-emerald-100 text-emerald-800 flex items-center justify-center font-bold text-xs shrink-0">
+                          <Users className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <span className="text-[10px] font-black uppercase tracking-wider text-emerald-700 block">Pillar 2</span>
+                          <h4 className="font-serif font-bold text-slate-900 text-sm leading-tight">{pillars[1].title}</h4>
+                        </div>
                       </div>
-                      <div>
-                        <span className="text-[10px] font-black uppercase tracking-wider text-emerald-700 block">Pillar 2</span>
-                        <h4 className="font-serif font-bold text-slate-900 text-sm leading-tight">Collaboration</h4>
-                      </div>
+                      <p className="text-[11px] text-slate-600 italic leading-snug mb-3 pb-2 border-b border-slate-100">
+                        {pillars[1].tagline}
+                      </p>
+                      <ul className="space-y-2.5 text-xs text-slate-800">
+                        {pillars[1].subPillars.map((sub, i) => (
+                          <li key={i} className="space-y-0.5">
+                            <div className="flex items-center gap-1.5 font-bold text-slate-900 text-[11px]">
+                              <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 shrink-0"></span>
+                              <span>{sub.title}</span>
+                            </div>
+                            <p className="text-[10.5px] text-slate-600 leading-tight pl-3">
+                              {sub.description}
+                            </p>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <p className="text-[11px] text-slate-600 italic leading-snug mb-3 pb-2 border-b border-slate-100">
-                      {CAMPAIGN_PILLARS[1].tagline}
-                    </p>
-                    <ul className="space-y-2 text-xs text-slate-800 font-semibold">
-                      {CAMPAIGN_PILLARS[1].subPillars.map((sub, i) => (
-                        <li key={i} className="flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full bg-emerald-600 shrink-0"></span>
-                          <span>{sub.title}</span>
-                        </li>
-                      ))}
-                    </ul>
                   </div>
-                </div>
+                )}
 
                 {/* Pillar 3 Card */}
-                <div className="bg-white rounded-xl border border-amber-300 p-4 shadow-xs flex flex-col justify-between hover:border-amber-500 transition-colors relative overflow-hidden">
-                  <div className="absolute top-0 left-0 right-0 h-1.5 bg-amber-500"></div>
-                  <div>
-                    <div className="flex items-center gap-2 mb-2">
-                      <div className="w-7 h-7 rounded-lg bg-amber-100 text-amber-900 flex items-center justify-center font-bold text-xs shrink-0">
-                        <ShieldCheck className="w-4 h-4" />
+                {pillars[2] && (
+                  <div className="bg-white rounded-xl border border-amber-300 p-4 shadow-xs flex flex-col justify-between hover:border-amber-500 transition-colors relative overflow-hidden">
+                    <div className="absolute top-0 left-0 right-0 h-1.5 bg-amber-500"></div>
+                    <div>
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className="w-7 h-7 rounded-lg bg-amber-100 text-amber-900 flex items-center justify-center font-bold text-xs shrink-0">
+                          <ShieldCheck className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <span className="text-[10px] font-black uppercase tracking-wider text-amber-800 block">Pillar 3</span>
+                          <h4 className="font-serif font-bold text-slate-900 text-sm leading-tight">{pillars[2].title}</h4>
+                        </div>
                       </div>
-                      <div>
-                        <span className="text-[10px] font-black uppercase tracking-wider text-amber-800 block">Pillar 3</span>
-                        <h4 className="font-serif font-bold text-slate-900 text-sm leading-tight">Responsibility</h4>
-                      </div>
+                      <p className="text-[11px] text-slate-600 italic leading-snug mb-3 pb-2 border-b border-slate-100">
+                        {pillars[2].tagline}
+                      </p>
+                      <ul className="space-y-2.5 text-xs text-slate-800">
+                        {pillars[2].subPillars.map((sub, i) => (
+                          <li key={i} className="space-y-0.5">
+                            <div className="flex items-center gap-1.5 font-bold text-slate-900 text-[11px]">
+                              <span className="w-1.5 h-1.5 rounded-full bg-amber-600 shrink-0"></span>
+                              <span>{sub.title}</span>
+                            </div>
+                            <p className="text-[10.5px] text-slate-600 leading-tight pl-3">
+                              {sub.description}
+                            </p>
+                          </li>
+                        ))}
+                      </ul>
                     </div>
-                    <p className="text-[11px] text-slate-600 italic leading-snug mb-3 pb-2 border-b border-slate-100">
-                      {CAMPAIGN_PILLARS[2].tagline}
-                    </p>
-                    <ul className="space-y-2 text-xs text-slate-800 font-semibold">
-                      {CAMPAIGN_PILLARS[2].subPillars.map((sub, i) => (
-                        <li key={i} className="flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full bg-amber-600 shrink-0"></span>
-                          <span>{sub.title}</span>
-                        </li>
-                      ))}
-                    </ul>
                   </div>
-                </div>
+                )}
 
               </div>
 

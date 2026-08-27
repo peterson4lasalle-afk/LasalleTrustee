@@ -73,3 +73,12 @@ export interface EngagementFormData {
   message: string;
   endorsementPermission: boolean;
 }
+
+export type EditorTabId = 'candidate' | 'whyRunning' | 'pillars' | 'schools' | 'faqs' | 'backup';
+
+export interface SiteContentData {
+  candidate: CandidateProfile;
+  pillars: Pillar[];
+  schools: SchoolInfo[];
+  faqs: FaqItem[];
+}

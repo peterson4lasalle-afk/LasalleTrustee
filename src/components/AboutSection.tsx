@@ -61,7 +61,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ candidate, onOpenCus
               </div>
 
               {/* Quick Contact & Info */}
-              <div className="p-6 space-y-4 text-sm border-b border-slate-100">
+              <div className="p-6 space-y-4 text-sm">
                 <div className="flex items-center gap-3 text-slate-700">
                   <Mail className="w-4 h-4 text-gecdsb shrink-0" />
                   <a href={`mailto:${candidate.email}`} className="hover:text-gecdsb hover:underline">
@@ -72,17 +72,6 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ candidate, onOpenCus
                   <MapPin className="w-4 h-4 text-gecdsb shrink-0" />
                   <span>{candidate.location}</span>
                 </div>
-              </div>
-
-              {/* Edit Details Action Prompt */}
-              <div className="p-4 bg-slate-50 flex items-center justify-between text-xs">
-                <span className="text-slate-500">Need to update campaign info?</span>
-                <button
-                  onClick={onOpenCustomizer}
-                  className="text-gecdsb hover:text-gecdsb-800 font-bold underline cursor-pointer"
-                >
-                  Edit profile details
-                </button>
               </div>
 
             </div>

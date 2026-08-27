@@ -61,28 +61,20 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const navLinks = [
     {
-      name: 'Platform',
-      subtitle: '3 core pillars & measurable commitments',
-      href: '#pillars',
-      icon: GraduationCap,
-      badge: '3 Pillars',
-      badgeColor: 'bg-gecdsb-100 text-gecdsb-900',
-    },
-    {
-      name: 'Why I am Running',
-      subtitle: 'Commitment to student success & service',
-      href: '#why-running',
-      icon: Compass,
-      badge: 'Vision',
-      badgeColor: 'bg-amber-100 text-amber-900',
-    },
-    {
       name: 'About Me',
       subtitle: 'Community roots, biography & background',
       href: '#about',
       icon: UserCheck,
       badge: 'Bio',
       badgeColor: 'bg-slate-100 text-slate-800',
+    },
+    {
+      name: 'Platform',
+      subtitle: '3 core pillars & measurable commitments',
+      href: '#pillars',
+      icon: GraduationCap,
+      badge: '3 Pillars',
+      badgeColor: 'bg-gecdsb-100 text-gecdsb-900',
     },
     {
       name: 'Local Schools',
@@ -98,18 +90,28 @@ export const Navbar: React.FC<NavbarProps> = ({
       href: '#faq',
       icon: HelpCircle,
       badge: 'Guide',
+      badgeColor: 'bg-amber-100 text-amber-900',
+    },
+    {
+      name: 'Contact',
+      subtitle: 'Connect directly with Adam Peterson',
+      href: '#contact',
+      icon: Mail,
+      badge: 'Connect',
       badgeColor: 'bg-gecdsb-100 text-gecdsb-900',
     },
   ];
 
   const handleNavClick = (href: string) => {
     setMobileDrawerOpen(false);
-    const element = document.querySelector(href);
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId) || document.querySelector(href);
     if (element) {
-      // Allow drawer close animation to start before scrolling smoothly
       setTimeout(() => {
-        element.scrollIntoView({ behavior: 'smooth' });
-      }, 120);
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 80);
+    } else if (href === '#about' || href === '#hero') {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -122,7 +124,11 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* Candidate Brand */}
             <a
               id="brand-logo-link"
-              href="#hero"
+              href="#about"
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('#about');
+              }}
               className="flex items-center gap-2.5 sm:gap-3 group focus:outline-hidden focus:ring-2 focus:ring-gecdsb rounded-lg p-1"
             >
               <div className="flex flex-col">

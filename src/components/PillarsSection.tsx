@@ -15,10 +15,14 @@ import {
 } from 'lucide-react';
 
 interface PillarsSectionProps {
+  pillars?: Pillar[];
   activePillarId?: string | null;
 }
 
-export const PillarsSection: React.FC<PillarsSectionProps> = ({ activePillarId }) => {
+export const PillarsSection: React.FC<PillarsSectionProps> = ({
+  pillars = CAMPAIGN_PILLARS,
+  activePillarId,
+}) => {
   const [selectedPillarId, setSelectedPillarId] = useState<string>(activePillarId || 'pillar-1');
 
   // If parent changed activePillarId, sync
@@ -32,7 +36,7 @@ export const PillarsSection: React.FC<PillarsSectionProps> = ({ activePillarId }
     }
   }, [activePillarId]);
 
-  const selectedPillar = CAMPAIGN_PILLARS.find((p) => p.id === selectedPillarId) || CAMPAIGN_PILLARS[0];
+  const selectedPillar = pillars.find((p) => p.id === selectedPillarId) || pillars[0];
 
   const getPillarIcon = (iconName: string) => {
     switch (iconName) {
@@ -67,7 +71,7 @@ export const PillarsSection: React.FC<PillarsSectionProps> = ({ activePillarId }
 
         {/* 3 Pillar Tab Selectors */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-          {CAMPAIGN_PILLARS.map((pillar) => {
+          {pillars.map((pillar) => {
             const isSelected = selectedPillar.id === pillar.id;
             return (
               <button

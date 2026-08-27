@@ -58,7 +58,7 @@ export const Footer: React.FC<FooterProps> = ({ candidate, onOpenPrintable }) =>
             <ul className="space-y-2 text-xs">
               <li>
                 <a href="#pillars" className="hover:text-white transition-colors block">
-                  <strong className="text-slate-200">Pillar 1:</strong> Focus on Student Success (Literacy, STEM & Well-Being)
+                  <strong className="text-slate-200">Pillar 1:</strong> Focus on Student Success (Literacy, Math & Well-Being)
                 </a>
               </li>
               <li>

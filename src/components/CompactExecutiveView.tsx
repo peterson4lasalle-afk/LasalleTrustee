@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { CandidateProfile } from '../types';
+import { CandidateProfile, Pillar, SchoolInfo, FaqItem, EditorTabId } from '../types';
 import { CAMPAIGN_PILLARS, LOCAL_SCHOOLS, VOTER_FAQS } from '../data/campaignData';
 import {
   GraduationCap,
@@ -17,17 +17,24 @@ import {
   Award,
   BookOpen,
   Briefcase,
-  ExternalLink
+  ExternalLink,
+  Edit3
 } from 'lucide-react';
 
 interface CompactExecutiveViewProps {
   candidate: CandidateProfile;
+  pillars?: Pillar[];
+  schools?: SchoolInfo[];
+  faqs?: FaqItem[];
   onOpenPrintable: () => void;
-  onOpenCustomizer: () => void;
+  onOpenCustomizer: (initialTab?: EditorTabId) => void;
 }
 
 export const CompactExecutiveView: React.FC<CompactExecutiveViewProps> = ({
   candidate,
+  pillars = CAMPAIGN_PILLARS,
+  schools = LOCAL_SCHOOLS,
+  faqs = VOTER_FAQS,
   onOpenPrintable,
   onOpenCustomizer,
 }) => {
@@ -35,28 +42,18 @@ export const CompactExecutiveView: React.FC<CompactExecutiveViewProps> = ({
   const [selectedMun, setSelectedMun] = useState<'All' | 'LaSalle' | 'Amherstburg'>('All');
   const [openFaq, setOpenFaq] = useState<string | null>(null);
 
-  const activePillar = CAMPAIGN_PILLARS[selectedPillarIndex];
+  const activePillar = pillars[selectedPillarIndex] || pillars[0];
 
   const filteredSchools = selectedMun === 'All'
-    ? LOCAL_SCHOOLS
-    : LOCAL_SCHOOLS.filter((s) => s.municipality === selectedMun);
+    ? schools
+    : schools.filter((s) => s.municipality === selectedMun);
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
       
       {/* 1. TOP HERO BENTO: Candidate Profile & About Me (Full Width) */}
-      <div className="rounded-2xl bg-gradient-to-br from-gecdsb-950 via-gecdsb-900 to-gecdsb-950 text-white p-6 sm:p-8 shadow-lg relative overflow-hidden flex flex-col justify-between space-y-5 border border-gecdsb-800">
+      <div id="about" className="scroll-mt-24 rounded-2xl bg-gradient-to-br from-gecdsb-950 via-gecdsb-900 to-gecdsb-950 text-white p-6 sm:p-8 shadow-lg relative overflow-hidden flex flex-col justify-between space-y-5 border border-gecdsb-800">
         <div className="relative z-10 space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-2">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-gecdsb-800/90 border border-gecdsb-600/60 text-xs font-bold text-amber-300">
-              <MapPin className="w-3.5 h-3.5" />
-              Peterson for Trustee • {candidate.riding}
-            </span>
-            <span className="text-xs text-gecdsb-200 font-medium">
-              Greater Essex County District School Board (English Public)
-            </span>
-          </div>
-
           <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 pt-1">
             <img
               src={candidate.photoUrl || "./candidate-headshot.jpg"}
@@ -113,7 +110,7 @@ export const CompactExecutiveView: React.FC<CompactExecutiveViewProps> = ({
       </div>
 
       {/* 2. THE 3-PILLAR INTERACTIVE COMPACT SUITE */}
-      <div className="rounded-2xl bg-white border border-slate-200 p-6 shadow-xs space-y-5">
+      <div id="pillars" className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 shadow-xs space-y-5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-3">
           <div>
             <span className="text-[11px] font-bold uppercase tracking-wider text-gecdsb">
@@ -130,7 +127,7 @@ export const CompactExecutiveView: React.FC<CompactExecutiveViewProps> = ({
 
         {/* Pillar Selection Tabs */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
-          {CAMPAIGN_PILLARS.map((pillar, idx) => {
+          {pillars.map((pillar, idx) => {
             const isSelected = selectedPillarIndex === idx;
             const icons = [
               <GraduationCap key={1} className="w-4 h-4" />,
@@ -140,7 +137,7 @@ export const CompactExecutiveView: React.FC<CompactExecutiveViewProps> = ({
 
             return (
               <button
-                key={pillar.id}
+                key={pillar.id || idx}
                 onClick={() => setSelectedPillarIndex(idx)}
                 className={`p-3.5 rounded-xl text-left border transition-all cursor-pointer ${
                   isSelected
@@ -150,12 +147,12 @@ export const CompactExecutiveView: React.FC<CompactExecutiveViewProps> = ({
               >
                 <div className="flex items-center justify-between gap-2 mb-1.5">
                   <div className={`p-1.5 rounded-md ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-200 text-slate-700'}`}>
-                    {icons[idx]}
+                    {icons[idx % icons.length]}
                   </div>
                   <span className={`text-[10px] font-bold uppercase tracking-wide px-2 py-0.5 rounded-full ${
                     isSelected ? 'bg-amber-400 text-slate-950' : 'bg-slate-200 text-slate-700'
                   }`}>
-                    Pillar {pillar.number}
+                    Pillar {pillar.number || idx + 1}
                   </span>
                 </div>
                 <h3 className="font-bold text-sm leading-snug">
@@ -211,7 +208,7 @@ export const CompactExecutiveView: React.FC<CompactExecutiveViewProps> = ({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-5">
         
         {/* LaSalle & Amherstburg Schools Card */}
-        <div className="lg:col-span-7 rounded-2xl bg-white border border-slate-200 p-5 sm:p-6 shadow-xs space-y-4">
+        <div id="schools" className="scroll-mt-24 lg:col-span-7 rounded-2xl bg-white border border-slate-200 p-5 sm:p-6 shadow-xs space-y-4">
           <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
             <div className="flex items-center gap-2">
               <div className="p-1.5 rounded-md bg-emerald-100 text-emerald-900">
@@ -262,7 +259,7 @@ export const CompactExecutiveView: React.FC<CompactExecutiveViewProps> = ({
         </div>
 
         {/* Voter FAQ & Election Guide */}
-        <div className="lg:col-span-5 rounded-2xl bg-white border border-slate-200 p-5 sm:p-6 shadow-xs space-y-4">
+        <div id="faq" className="scroll-mt-24 lg:col-span-5 rounded-2xl bg-white border border-slate-200 p-5 sm:p-6 shadow-xs space-y-4">
           <div className="flex items-center justify-between border-b border-slate-100 pb-3">
             <div className="flex items-center gap-2">
               <div className="p-1.5 rounded-md bg-amber-100 text-amber-900">
@@ -278,7 +275,7 @@ export const CompactExecutiveView: React.FC<CompactExecutiveViewProps> = ({
           </div>
 
           <div className="space-y-2 text-xs">
-            {VOTER_FAQS.slice(0, 4).map((faq) => {
+            {faqs.slice(0, 4).map((faq) => {
               const isOpen = openFaq === faq.id;
               return (
                 <div key={faq.id} className="rounded-lg border border-slate-200 overflow-hidden bg-slate-50/60">
@@ -318,7 +315,7 @@ export const CompactExecutiveView: React.FC<CompactExecutiveViewProps> = ({
       </div>
 
       {/* 4. CONNECT & DIRECT CONTACT SECTION */}
-      <div id="get-involved" className="rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 shadow-xs">
+      <div id="contact" className="scroll-mt-24 rounded-2xl bg-white border border-slate-200 p-6 sm:p-8 shadow-xs">
         <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2 max-w-2xl">
             <div className="flex items-center gap-2">

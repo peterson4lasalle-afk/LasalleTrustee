@@ -39,7 +39,8 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ candidate, onOpenCus
                   <img
                     src={candidate.photoUrl || "./candidate-headshot.jpg"}
                     alt={candidate.fullName}
-                    className="w-32 h-40 sm:w-36 sm:h-44 rounded-2xl object-cover object-center border-4 border-amber-400 shadow-xl mx-auto bg-gecdsb-950"
+                    className="w-36 h-48 sm:w-40 sm:h-52 rounded-2xl object-cover border-4 border-amber-400 shadow-xl mx-auto bg-gecdsb-950"
+                    style={{ objectPosition: 'center 10%' }}
                     onError={(e) => {
                       (e.currentTarget as HTMLImageElement).src = './candidate-headshot.jpg';
                     }}

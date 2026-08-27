@@ -117,7 +117,8 @@ export const PrintablePlatformModal: React.FC<PrintablePlatformModalProps> = ({
                     <img
                       src={candidate.photoUrl || "./candidate-headshot.jpg"}
                       alt={candidate.fullName}
-                      className="w-18 h-18 sm:w-20 sm:h-20 rounded-xl object-cover object-top border-2 border-amber-400 shadow-sm"
+                      className="w-18 h-18 sm:w-20 sm:h-20 rounded-xl object-cover border-2 border-amber-400 shadow-sm"
+                      style={{ objectPosition: 'center 10%' }}
                       onError={(e) => {
                         (e.currentTarget as HTMLImageElement).src = './candidate-headshot.jpg';
                       }}

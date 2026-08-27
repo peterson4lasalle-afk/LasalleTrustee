@@ -58,7 +58,8 @@ export const CompactExecutiveView: React.FC<CompactExecutiveViewProps> = ({
             <img
               src={candidate.photoUrl || "./candidate-headshot.jpg"}
               alt={candidate.fullName}
-              className="w-28 h-36 sm:w-32 sm:h-40 rounded-2xl object-cover object-center border-2 border-amber-400 shadow-md shrink-0 bg-gecdsb-950"
+              className="w-28 h-40 sm:w-36 sm:h-48 rounded-2xl object-cover border-2 border-amber-400 shadow-md shrink-0 bg-gecdsb-950"
+              style={{ objectPosition: 'center 10%' }}
               onError={(e) => {
                 (e.currentTarget as HTMLImageElement).src = './candidate-headshot.jpg';
               }}

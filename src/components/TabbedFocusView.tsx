@@ -255,7 +255,8 @@ export const TabbedFocusView: React.FC<TabbedFocusViewProps> = ({
               <img
                 src={candidate.photoUrl || "./candidate-headshot.jpg"}
                 alt={candidate.fullName}
-                className="w-28 h-36 sm:w-32 sm:h-40 rounded-xl object-cover object-center border-2 border-amber-400 shadow-sm shrink-0 bg-slate-100"
+                className="w-28 h-40 sm:w-36 sm:h-48 rounded-xl object-cover border-2 border-amber-400 shadow-sm shrink-0 bg-slate-100"
+                style={{ objectPosition: 'center 10%' }}
                 onError={(e) => {
                   (e.currentTarget as HTMLImageElement).src = './candidate-headshot.jpg';
                 }}

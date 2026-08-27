@@ -14,7 +14,7 @@ export const INITIAL_CANDIDATE_PROFILE: CandidateProfile = {
   extendedBio: [
     "I have been immersed in education my whole life. Raised by a teacher, married to an educator, and now raising two children in the public school system, I see firsthand the daily dedication required to support our students and staff. Having also taught as a professor at two Ontario colleges, I understand the real challenges faced in today's classrooms. I am convinced that student success must be our top priority which is achieved through accountability, collaboration, and transparent communication.",
     'Beyond the classroom, I bring nearly two decades of professional experience across small businesses and multinational organizations in Ontario and the United States. Throughout my career, I have focused on building strong relationships across all organizational levels and maintaining strict fiscal responsibility.',
-    'My educational and business background provides a practical foundation for managing board resources wisely. I am committed to ensuring the school board keeps student success—both inside and outside the classroom at the forefront of every decision.'
+    'My educational and business background provides a practical foundation for managing board resources wisely. I am committed to ensuring the school board keeps student success at the forefront of every decision.'
   ],
   credentials: [
     'Former College Professor at Two Ontario Colleges',

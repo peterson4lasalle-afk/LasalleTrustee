@@ -30,7 +30,7 @@ export type LayoutMode = 'compact' | 'tabbed' | 'extended';
 export default function App() {
   const [siteContent, setSiteContent] = useState<SiteContentData>(() => {
     try {
-      const saved = localStorage.getItem('gecdsb_site_content_v17');
+      const saved = localStorage.getItem('gecdsb_site_content_v18');
       if (saved) {
         const parsed = JSON.parse(saved);
         if (parsed.candidate && parsed.pillars) {
@@ -68,8 +68,8 @@ export default function App() {
 
   useEffect(() => {
     try {
-      localStorage.setItem('gecdsb_site_content_v17', JSON.stringify(siteContent));
-      localStorage.setItem('gecdsb_candidate_profile_v17', JSON.stringify(siteContent.candidate));
+      localStorage.setItem('gecdsb_site_content_v18', JSON.stringify(siteContent));
+      localStorage.setItem('gecdsb_candidate_profile_v18', JSON.stringify(siteContent.candidate));
     } catch {
       // ignore
     }

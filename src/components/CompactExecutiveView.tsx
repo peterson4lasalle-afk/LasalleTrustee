@@ -75,8 +75,8 @@ export const CompactExecutiveView: React.FC<CompactExecutiveViewProps> = ({
           </div>
 
           {/* Candidate Narrative (About Me Core) */}
-          <div className="space-y-2.5 text-xs sm:text-sm text-slate-200 leading-relaxed border-t border-gecdsb-800/80 pt-3">
-            <p>
+          <div className="space-y-3.5 text-xs sm:text-sm text-slate-200 leading-relaxed border-t border-gecdsb-800/80 pt-4">
+            <p className="font-semibold text-white text-sm sm:text-base leading-snug">
               {candidate.bioIntro}
             </p>
             {candidate.extendedBio.map((paragraph, i) => (
@@ -84,6 +84,34 @@ export const CompactExecutiveView: React.FC<CompactExecutiveViewProps> = ({
                 {paragraph}
               </p>
             ))}
+
+            {/* Why I am running highlights */}
+            <div className="pt-2 space-y-2.5">
+              <h4 className="font-serif font-bold text-amber-300 text-sm">
+                Why I am running for Trustee with the Greater Essex County District School Board:
+              </h4>
+              <div className="grid grid-cols-1 gap-2">
+                {candidate.whyRunningHighlights.map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-2.5 p-2.5 rounded-lg bg-gecdsb-900/90 border border-gecdsb-700/80 text-xs">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="text-white font-bold block">{item.title}:</strong>
+                      <span className="text-slate-300">{item.description}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Closing Statement Callout with bolded text */}
+            <div className="p-4 rounded-xl bg-gecdsb-800/90 border border-gecdsb-700 text-white space-y-2 mt-3">
+              <p className="text-xs sm:text-sm text-slate-200 leading-relaxed">
+                Our schools need leadership that balances deep personal dedication with practical, real-world experience.
+              </p>
+              <p className="text-xs sm:text-sm font-bold text-amber-300 leading-relaxed pt-0.5">
+                Vote for strong schools, accountable leadership, and a brighter future for our children.
+              </p>
+            </div>
           </div>
         </div>
 

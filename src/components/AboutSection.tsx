@@ -109,12 +109,12 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ candidate, onOpenCus
 
           </div>
 
-          {/* Right Column: Bio Narrative & Credentials */}
+          {/* Right Column: Bio Narrative & Why Running Highlights */}
           <div className="lg:col-span-7 space-y-8">
             
             {/* Bio Paragraphs */}
             <div className="space-y-4 text-slate-700 text-base sm:text-lg leading-relaxed">
-              <p className="font-medium text-slate-900">
+              <p className="font-semibold text-slate-900 leading-snug">
                 {candidate.bioIntro}
               </p>
               {candidate.extendedBio.map((paragraph, idx) => (
@@ -124,37 +124,34 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ candidate, onOpenCus
               ))}
             </div>
 
-            {/* Candidate Experience & Community Involvement */}
+            {/* Why I am running for Trustee with the GECDSB */}
             <div className="space-y-4 pt-4 border-t border-slate-200">
               <h3 className="text-xl font-serif font-bold text-slate-900">
-                Community Experience & Qualifications
+                Why I am running for Trustee with the Greater Essex County District School Board:
               </h3>
-              <div className="grid grid-cols-1 gap-3">
-                {candidate.credentials.map((cred, index) => (
+              <div className="grid grid-cols-1 gap-3.5">
+                {candidate.whyRunningHighlights.map((item, index) => (
                   <div
                     key={index}
-                    className="flex items-start gap-3 p-3.5 rounded-xl bg-white border border-slate-200/80 shadow-2xs"
+                    className="flex items-start gap-3.5 p-4 rounded-xl bg-white border border-slate-200/80 shadow-2xs"
                   >
                     <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
-                    <span className="text-sm font-medium text-slate-800">
-                      {cred}
-                    </span>
+                    <div className="text-sm">
+                      <strong className="text-slate-900 font-bold block mb-0.5">{item.title}:</strong>
+                      <span className="text-slate-600 leading-relaxed">{item.description}</span>
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
 
-            {/* Candidate Pledge Box */}
+            {/* Closing Statement Callout */}
             <div className="p-6 rounded-2xl bg-gecdsb text-white shadow-md space-y-3">
-              <div className="flex items-center gap-2 text-amber-400 text-xs font-bold uppercase tracking-wider">
-                <Sparkles className="w-4 h-4" />
-                <span>My Pledge as Your Trustee</span>
-              </div>
-              <h4 className="text-lg font-serif font-bold text-white">
-                "I will be an accessible, proactive, and independent voice for every family in LaSalle and Amherstburg."
-              </h4>
-              <p className="text-xs sm:text-sm text-gecdsb-100 leading-relaxed">
-                I promise to return calls and emails promptly, host open ward town halls, and hold the administration accountable to direct classroom investments.
+              <p className="text-base sm:text-lg text-slate-100 leading-relaxed">
+                Our schools need leadership that balances deep personal dedication with practical, real-world experience.
+              </p>
+              <p className="text-base sm:text-lg font-bold text-white leading-relaxed pt-1">
+                Vote for strong schools, accountable leadership, and a brighter future for our children.
               </p>
             </div>
 

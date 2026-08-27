@@ -10,39 +10,32 @@ export const INITIAL_CANDIDATE_PROFILE: CandidateProfile = {
   email: 'Peterson4LaSalle@gmail.com',
   photoUrl: '/candidate-headshot.jpg',
   bioIntro:
-    'I am a firm believer in the importance of education, and it has always been a core tenet of my life. My background, combined with my professional experience, makes me an ideal candidate for Trustee with the Greater Essex County District School Board.',
+    'Every child in our community deserves a world-class education, and every parent deserves a school board that leads with accountability, fiscal integrity, and heart.',
   extendedBio: [
-    "I have been immersed in education my whole life. Raised by a teacher, married to an educator, and now raising two children in the public school system, I see firsthand the daily dedication required to support our students and staff. Having also taught as a professor at two Ontario colleges, I understand the real challenges faced in today's classrooms. I am convinced that student success must be our top priority which is achieved through accountability, collaboration, and transparent communication.",
-    'Beyond the classroom, I bring nearly two decades of professional experience across small businesses and multinational organizations in Ontario and the United States. Throughout my career, I have focused on building strong relationships across all organizational levels and maintaining strict fiscal responsibility.',
-    'My educational and business background provides a practical foundation for managing board resources wisely. I am committed to ensuring the school board keeps student success at the forefront of every decision.'
+    "Education isn't just a policy point for me, it is the fabric of my life. Raised by a teacher, married to an educator, and raising two children currently enrolled in our local public schools, I live the reality of our education system every single day. Having also stood at the front of the classroom as a college professor, I know firsthand what our students and teachers need to succeed, and where our system falls short."
   ],
   credentials: [
     'Former College Professor at Two Ontario Colleges',
-    'Nearly Two Decades of Professional Management & Business Experience (Ontario & U.S.)',
-    'Raised by a Teacher, Married to an Educator, & Parent of 2 Public School Students',
-    'Practical Foundation in Fiscal Responsibility & Resource Stewardship',
-    'Committed to Student Success, Collaborative Governance & Transparent Accountability'
+    'Nearly Two Decades of Professional Management & Business Experience',
+    'Educator Family: Raised by a Teacher, Married to an Educator',
+    'Parent of Two Children in Local Public Schools',
+    'Practical Foundation in Fiscal Stewardship & Resource Management'
   ],
   whyRunningHighlights: [
     {
-      title: 'Restoring Focus to the Classroom',
+      title: 'Real Educational Perspective',
       description:
-        'Too often, public discussions lose sight of what truly matters: high-quality teaching, safe classrooms, and strong foundational skills in math, reading, and science. I am running to ensure budget dollars directly reach students and educators.'
+        'I understand modern classroom challenges from every angle, as a parent, a former educator, and a champion for student success.'
     },
     {
-      title: 'Building Bridges, Not Walls',
+      title: 'Fiscal Accountability',
       description:
-        'School boards should be engines of constructive policy, not arenas of partisan conflict. I will bring a calm, respectful, consensus-building approach to the trustee table, partnering constructively with fellow trustees and school communities.'
+        'With nearly two decades of business leadership across small enterprises and multinational organizations, I bring proven financial discipline to ensure public funds directly benefit our classrooms.'
     },
     {
-      title: 'Strong, Accountable Voice for LaSalle & Amherstburg',
+      title: 'Transparent Leadership',
       description:
-        'Our riding represents both fast-growing suburban neighbourhoods in LaSalle and historic, close-knit rural/urban communities in Amherstburg. I will advocate tirelessly for our local school facilities, busing equity, and specialized programming.'
-    },
-    {
-      title: 'Transparent & Accessible Representation',
-      description:
-        'Parents, students, and taxpayers should never feel left in the dark. I commit to hosting regular town halls, maintaining open communication channels, and clearly explaining the rationale behind every major board vote.'
+        'I will foster open communication and strong collaboration among parents, staff, and the board to put student achievement at the forefront of every single decision.'
     }
   ]
 };

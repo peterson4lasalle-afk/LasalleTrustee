@@ -273,7 +273,7 @@ export const TabbedFocusView: React.FC<TabbedFocusViewProps> = ({
             </div>
 
             <div className="space-y-3.5 text-sm text-slate-700 leading-relaxed">
-              <p className="font-medium text-slate-900">
+              <p className="font-semibold text-slate-900 text-base">
                 {candidate.bioIntro}
               </p>
               {candidate.extendedBio.map((paragraph, idx) => (
@@ -281,6 +281,34 @@ export const TabbedFocusView: React.FC<TabbedFocusViewProps> = ({
                   {paragraph}
                 </p>
               ))}
+            </div>
+
+            {/* Why Running Highlights inside Tabbed View */}
+            <div className="pt-3 border-t border-slate-200 space-y-2.5">
+              <h4 className="font-serif font-bold text-slate-900 text-sm">
+                Why I am running for Trustee with the Greater Essex County District School Board:
+              </h4>
+              <div className="space-y-2">
+                {candidate.whyRunningHighlights.map((item, idx) => (
+                  <div key={idx} className="flex items-start gap-2.5 p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0 mt-0.5" />
+                    <div>
+                      <strong className="text-slate-900 font-bold block mb-0.5">{item.title}:</strong>
+                      <span className="text-slate-600">{item.description}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Closing statement callout */}
+            <div className="p-4 rounded-xl bg-gecdsb text-white space-y-2 mt-4">
+              <p className="text-xs sm:text-sm text-slate-100 leading-relaxed">
+                Our schools need leadership that balances deep personal dedication with practical, real-world experience.
+              </p>
+              <p className="text-xs sm:text-sm font-bold text-white leading-relaxed pt-0.5">
+                Vote for strong schools, accountable leadership, and a brighter future for our children.
+              </p>
             </div>
           </div>
 

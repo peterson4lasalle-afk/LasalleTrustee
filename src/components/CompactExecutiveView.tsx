@@ -132,7 +132,7 @@ export const CompactExecutiveView: React.FC<CompactExecutiveViewProps> = ({
               className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold transition-colors cursor-pointer"
             >
               <FileText className="w-3.5 h-3.5" />
-              <span>Event Flyer & Platform PDF</span>
+              <span>Platform PDF</span>
             </button>
           </div>
         </div>

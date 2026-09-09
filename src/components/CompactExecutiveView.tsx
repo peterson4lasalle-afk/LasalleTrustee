@@ -18,7 +18,8 @@ import {
   BookOpen,
   Briefcase,
   ExternalLink,
-  Edit3
+  Edit3,
+  Facebook
 } from 'lucide-react';
 
 interface CompactExecutiveViewProps {
@@ -126,13 +127,22 @@ export const CompactExecutiveView: React.FC<CompactExecutiveViewProps> = ({
               {candidate.riding}
             </span>
           </div>
-          <div className="flex items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2">
             <button
               onClick={onOpenPrintable}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold transition-colors cursor-pointer text-xs shadow-xs"
+              title="View & print campaign platform flyer"
             >
               <FileText className="w-3.5 h-3.5" />
               <span>Platform PDF</span>
+            </button>
+            <button
+              onClick={onOpenPrintable}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold transition-colors cursor-pointer text-xs shadow-xs"
+              title="Create a square graphic or PDF for Facebook"
+            >
+              <Facebook className="w-3.5 h-3.5" />
+              <span>Facebook Post</span>
             </button>
           </div>
         </div>

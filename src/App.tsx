@@ -20,14 +20,29 @@ import { LocalSchoolsSection } from './components/LocalSchoolsSection';
 import { VoterFaqSection } from './components/VoterFaqSection';
 import { GetInvolvedSection } from './components/GetInvolvedSection';
 import { Footer } from './components/Footer';
-import { PrintablePlatformModal } from './components/PrintablePlatformModal';
+import { PrintablePlatformModal, FlyerFormat } from './components/PrintablePlatformModal';
 import { SiteContentEditorModal } from './components/SiteContentEditorModal';
 import { CompactExecutiveView } from './components/CompactExecutiveView';
 import { TabbedFocusView } from './components/TabbedFocusView';
+import { ArchiveLandingPage } from './components/ArchiveLandingPage';
 
 export type LayoutMode = 'compact' | 'tabbed' | 'extended';
 
 export default function App() {
+  const [viewingArchivedPlatform, setViewingArchivedPlatform] = useState<boolean>(() => {
+    if (typeof window !== 'undefined') {
+      return window.location.hash === '#archive';
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const handleHashChange = () => {
+      setViewingArchivedPlatform(window.location.hash === '#archive');
+    };
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
   const [siteContent, setSiteContent] = useState<SiteContentData>(() => {
     try {
       const saved = localStorage.getItem('gecdsb_site_content_v21');
@@ -63,8 +78,14 @@ export default function App() {
 
   const [activePillarId, setActivePillarId] = useState<string | null>(null);
   const [isPrintableOpen, setIsPrintableOpen] = useState(false);
+  const [printableFormat, setPrintableFormat] = useState<FlyerFormat>('postcard');
   const [isEditorOpen, setIsEditorOpen] = useState(false);
   const [editorInitialTab, setEditorInitialTab] = useState<EditorTabId>('candidate');
+
+  const handleOpenPrintable = (format: FlyerFormat = 'postcard') => {
+    setPrintableFormat(format);
+    setIsPrintableOpen(true);
+  };
 
   useEffect(() => {
     try {
@@ -100,15 +121,50 @@ export default function App() {
     setSiteContent(updated);
   };
 
+  if (!viewingArchivedPlatform) {
+    return (
+      <ArchiveLandingPage
+        candidate={siteContent.candidate}
+        onExploreArchive={() => {
+          window.location.hash = '#archive';
+          setViewingArchivedPlatform(true);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+      />
+    );
+  }
+
   return (
     <div className="min-h-screen flex flex-col bg-slate-50 text-slate-900 font-sans">
+      {/* Archive Header Banner */}
+      <div className="bg-amber-400 text-slate-950 font-medium px-4 py-2.5 text-xs sm:text-sm flex flex-wrap items-center justify-between gap-3 shadow-sm border-b border-amber-500 sticky top-0 z-50">
+        <div className="flex items-center space-x-2">
+          <span className="font-extrabold uppercase tracking-wider bg-slate-950 text-amber-300 text-[10px] px-2 py-0.5 rounded">
+            Archived Campaign
+          </span>
+          <span className="font-semibold text-slate-900">
+            Viewing archived 2026 campaign materials for Adam Peterson (GECDSB Trustee).
+          </span>
+        </div>
+        <button
+          onClick={() => {
+            window.location.hash = '';
+            setViewingArchivedPlatform(false);
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+          }}
+          className="inline-flex items-center font-bold text-slate-950 hover:text-slate-800 underline transition-colors cursor-pointer"
+        >
+          ← Return to Thank You & Concession Statement
+        </button>
+      </div>
+
       {/* Sticky Civic Header */}
       <Navbar
         candidate={siteContent.candidate}
         layoutMode={layoutMode}
         onChangeLayoutMode={setLayoutMode}
         onOpenCustomizer={() => handleOpenEditor('candidate')}
-        onOpenPrintable={() => setIsPrintableOpen(true)}
+        onOpenPrintable={handleOpenPrintable}
       />
 
       {/* Main Content Area: Default Bento Layout */}
@@ -119,7 +175,7 @@ export default function App() {
             pillars={siteContent.pillars}
             schools={siteContent.schools}
             faqs={siteContent.faqs}
-            onOpenPrintable={() => setIsPrintableOpen(true)}
+            onOpenPrintable={handleOpenPrintable}
             onOpenCustomizer={(tab) => handleOpenEditor(tab || 'candidate')}
           />
         )}
@@ -179,6 +235,7 @@ export default function App() {
         onClose={() => setIsPrintableOpen(false)}
         candidate={siteContent.candidate}
         pillars={siteContent.pillars}
+        initialFormat={printableFormat}
       />
 
       {/* Global Live Site Text & Content Editor Modal */}

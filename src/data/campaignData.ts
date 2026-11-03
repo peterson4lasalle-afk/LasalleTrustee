@@ -7,7 +7,8 @@ export const INITIAL_CANDIDATE_PROFILE: CandidateProfile = {
   riding: 'Town of LaSalle and the Town of Amherstburg',
   schoolBoard: 'Greater Essex County District School Board (GECDSB)',
   location: 'Town of LaSalle & Town of Amherstburg, Ontario',
-  email: 'Peterson4LaSalle@gmail.com',
+  email: 'peterson4lasalle@gmail.com',
+  website: 'petersonforlasalle.com',
   photoUrl: '/candidate-headshot.jpg',
   bioIntro:
     'Every child in our community deserves a world-class education, and every parent deserves a school board that leads with accountability, fiscal integrity, and heart.',

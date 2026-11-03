@@ -134,9 +134,10 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ candidate, onOpenCus
                 {candidate.whyRunningHighlights.map((item, index) => (
                   <div
                     key={index}
-                    className="flex items-start gap-3.5 p-4 rounded-xl bg-white border border-slate-200/80 shadow-2xs"
+                    id={`about-why-running-${index + 1}`}
+                    className="flex items-start gap-3.5 p-4 rounded-xl bg-white border border-slate-200/80 border-l-4 border-l-amber-500 shadow-2xs hover:border-gecdsb/40 transition-all duration-200"
                   >
-                    <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0 mt-0.5" />
+                    <CheckCircle2 className="w-5 h-5 text-amber-500 shrink-0 mt-0.5" />
                     <div className="text-sm">
                       <strong className="text-slate-900 font-bold block mb-0.5">{item.title}:</strong>
                       <span className="text-slate-600 leading-relaxed">{item.description}</span>

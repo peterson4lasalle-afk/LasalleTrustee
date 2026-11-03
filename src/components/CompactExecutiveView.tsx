@@ -19,15 +19,17 @@ import {
   Briefcase,
   ExternalLink,
   Edit3,
-  Facebook
+  Facebook,
+  Shirt
 } from 'lucide-react';
+import { FlyerFormat } from './PrintablePlatformModal';
 
 interface CompactExecutiveViewProps {
   candidate: CandidateProfile;
   pillars?: Pillar[];
   schools?: SchoolInfo[];
   faqs?: FaqItem[];
-  onOpenPrintable: () => void;
+  onOpenPrintable: (format?: FlyerFormat) => void;
   onOpenCustomizer: (initialTab?: EditorTabId) => void;
 }
 
@@ -92,13 +94,17 @@ export const CompactExecutiveView: React.FC<CompactExecutiveViewProps> = ({
               <h4 className="font-serif font-bold text-amber-300 text-sm">
                 Why I am running for Trustee with the Greater Essex County District School Board:
               </h4>
-              <div className="grid grid-cols-1 gap-2">
+              <div className="grid grid-cols-1 gap-2.5">
                 {candidate.whyRunningHighlights.map((item, idx) => (
-                  <div key={idx} className="flex items-start gap-2.5 p-2.5 rounded-lg bg-gecdsb-900/90 border border-gecdsb-700/80 text-xs">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0 mt-0.5" />
-                    <div>
-                      <strong className="text-white font-bold block">{item.title}:</strong>
-                      <span className="text-slate-300">{item.description}</span>
+                  <div
+                    key={idx}
+                    id={`why-running-highlight-${idx + 1}`}
+                    className="flex items-start gap-3 p-3 sm:p-3.5 rounded-xl bg-gecdsb-900/95 border border-gecdsb-700/80 border-l-4 border-l-amber-400 shadow-xs transition-all duration-200 hover:border-gecdsb-600 hover:bg-gecdsb-850"
+                  >
+                    <CheckCircle2 className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" />
+                    <div className="text-xs sm:text-sm">
+                      <strong className="text-amber-200 font-bold block mb-0.5 tracking-tight">{item.title}:</strong>
+                      <span className="text-slate-200 leading-relaxed text-xs sm:text-xs">{item.description}</span>
                     </div>
                   </div>
                 ))}
@@ -129,15 +135,23 @@ export const CompactExecutiveView: React.FC<CompactExecutiveViewProps> = ({
           </div>
           <div className="flex flex-wrap items-center gap-2">
             <button
-              onClick={onOpenPrintable}
+              onClick={() => onOpenPrintable('postcard')}
               className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold transition-colors cursor-pointer text-xs shadow-xs"
-              title="View & print campaign platform flyer"
+              title="View & download official 4x6 Postcard print files and proof"
             >
               <FileText className="w-3.5 h-3.5" />
-              <span>Platform PDF</span>
+              <span>4" × 6" Postcard</span>
             </button>
             <button
-              onClick={onOpenPrintable}
+              onClick={() => onOpenPrintable('tshirt')}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-gecdsb hover:bg-gecdsb-700 text-white font-bold transition-colors cursor-pointer text-xs shadow-xs border border-teal-600/30"
+              title="Official campaign t-shirt logos and merchandise studio"
+            >
+              <Shirt className="w-3.5 h-3.5 text-amber-300" />
+              <span>T-Shirt Logo</span>
+            </button>
+            <button
+              onClick={() => onOpenPrintable('facebook')}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-600 hover:bg-blue-500 text-white font-bold transition-colors cursor-pointer text-xs shadow-xs"
               title="Create a square graphic or PDF for Facebook"
             >

@@ -55,6 +55,7 @@ export interface CandidateProfile {
   }[];
   credentials: string[];
   email: string;
+  website?: string;
   phone?: string;
   location: string;
   photoUrl?: string;

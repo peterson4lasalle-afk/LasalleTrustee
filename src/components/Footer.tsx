@@ -1,6 +1,6 @@
 import React from 'react';
 import { CandidateProfile } from '../types';
-import { ArrowUp, Mail, MapPin } from 'lucide-react';
+import { ArrowUp, Mail, MapPin, Globe } from 'lucide-react';
 
 interface FooterProps {
   candidate: CandidateProfile;
@@ -39,6 +39,12 @@ export const Footer: React.FC<FooterProps> = ({ candidate, onOpenPrintable }) =>
             </p>
 
             <div className="pt-2 text-xs text-slate-300 space-y-1.5">
+              {candidate.website && (
+                <div className="flex items-center gap-2">
+                  <Globe className="w-3.5 h-3.5 text-gecdsb-300" />
+                  <a href={`https://${candidate.website}`} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">{candidate.website}</a>
+                </div>
+              )}
               <div className="flex items-center gap-2">
                 <Mail className="w-3.5 h-3.5 text-gecdsb-300" />
                 <a href={`mailto:${candidate.email}`} className="hover:text-white transition-colors">{candidate.email}</a>

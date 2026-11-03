@@ -24,12 +24,14 @@ import {
   Send,
   ArrowRight,
   BookOpen,
-  Info
+  Info,
+  Shirt
 } from 'lucide-react';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
+import { TshirtStudio } from './TshirtStudio';
 
-export type FlyerFormat = 'compact' | 'full' | 'facebook';
+export type FlyerFormat = 'postcard' | 'tshirt' | 'compact' | 'full' | 'facebook';
 
 interface PrintablePlatformModalProps {
   candidate: CandidateProfile;
@@ -44,7 +46,7 @@ export const PrintablePlatformModal: React.FC<PrintablePlatformModalProps> = ({
   pillars = CAMPAIGN_PILLARS,
   isOpen,
   onClose,
-  initialFormat = 'compact',
+  initialFormat = 'postcard',
 }) => {
   const [activeFormat, setActiveFormat] = useState<FlyerFormat>(initialFormat);
   const [isExportingImage, setIsExportingImage] = useState(false);
@@ -81,6 +83,24 @@ export const PrintablePlatformModal: React.FC<PrintablePlatformModalProps> = ({
   const handleDownloadPdf = async () => {
     try {
       setIsExportingPdf(true);
+
+      if (activeFormat === 'tshirt') {
+        const link = document.createElement('a');
+        link.href = '/tshirt/vote-peterson-chest-dark.svg';
+        link.download = 'vote-peterson-tshirt-logo.svg';
+        link.click();
+        setIsExportingPdf(false);
+        return;
+      }
+
+      if (activeFormat === 'postcard') {
+        const link = document.createElement('a');
+        link.href = '/adam-peterson-4x6-postcard.pdf';
+        link.download = 'adam-peterson-4x6-postcard.pdf';
+        link.click();
+        setIsExportingPdf(false);
+        return;
+      }
 
       if (!cardRef.current) return;
       const canvas = await html2canvas(cardRef.current, {
@@ -132,6 +152,16 @@ export const PrintablePlatformModal: React.FC<PrintablePlatformModalProps> = ({
   const handleDownloadImage = async () => {
     try {
       setIsExportingImage(true);
+
+      if (activeFormat === 'tshirt') {
+        const link = document.createElement('a');
+        link.href = '/tshirt/vote-peterson-chest-dark.png';
+        link.download = 'vote-peterson-tshirt-logo-300dpi.png';
+        link.click();
+        setIsExportingImage(false);
+        return;
+      }
+
       const candidateSlug = candidate.fullName.toLowerCase().replace(/\s+/g, '-');
 
       if (!cardRef.current) return;
@@ -156,7 +186,7 @@ export const PrintablePlatformModal: React.FC<PrintablePlatformModalProps> = ({
   };
 
   const handleCopyCaption = () => {
-    const caption = `🗳️ Proud to share my platform as candidate for Public School Trustee representing LaSalle and Amherstburg (GECDSB).\n\nAs a college professor, educator family member, and public school parent, I am focused on:\n✅ Academic Success & Classroom Support\n✅ Safe, Modern & Well-Maintained Schools\n✅ Transparent Fiscal Stewardship & Parent Voice\n\nLearn more or get in touch: ${candidate.email}\n\n#GECDSB #LaSalle #Amherstburg #TrusteeElection #VotePeterson #PublicEducation #StudentSuccess`;
+    const caption = `🗳️ Proud to share my platform as candidate for Public School Trustee representing LaSalle and Amherstburg (GECDSB).\n\nAs a college professor, educator family member, and public school parent, I am focused on:\n✅ Academic Success & Classroom Support\n✅ Safe, Modern & Well-Maintained Schools\n✅ Transparent Fiscal Stewardship & Parent Voice\n\nLearn more: ${candidate.website || 'petersonforlasalle.com'}\nContact: ${candidate.email}\n\n#GECDSB #LaSalle #Amherstburg #TrusteeElection #VotePeterson #PublicEducation #StudentSuccess`;
 
     navigator.clipboard.writeText(caption);
     setCopiedCaption(true);
@@ -204,6 +234,30 @@ export const PrintablePlatformModal: React.FC<PrintablePlatformModalProps> = ({
           {/* Format Selector Tabs */}
           <div className="flex flex-wrap items-center bg-slate-800 p-1 rounded-xl border border-slate-700 gap-1">
             <button
+              onClick={() => setActiveFormat('postcard')}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                activeFormat === 'postcard'
+                  ? 'bg-amber-400 text-slate-950 shadow-xs'
+                  : 'text-slate-300 hover:text-white'
+              }`}
+            >
+              <FileText className="w-3.5 h-3.5" />
+              <span>4×6 Postcards</span>
+            </button>
+
+            <button
+              onClick={() => setActiveFormat('tshirt')}
+              className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                activeFormat === 'tshirt'
+                  ? 'bg-amber-400 text-slate-950 shadow-xs'
+                  : 'text-slate-300 hover:text-white'
+              }`}
+            >
+              <Shirt className="w-3.5 h-3.5" />
+              <span>T-Shirt Logo Studio</span>
+            </button>
+
+            <button
               onClick={() => setActiveFormat('compact')}
               className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
                 activeFormat === 'compact'
@@ -212,7 +266,7 @@ export const PrintablePlatformModal: React.FC<PrintablePlatformModalProps> = ({
               }`}
             >
               <Smartphone className="w-3.5 h-3.5" />
-              <span>Compact Handout (PDF)</span>
+              <span>Compact Handout</span>
             </button>
 
             <button
@@ -236,7 +290,7 @@ export const PrintablePlatformModal: React.FC<PrintablePlatformModalProps> = ({
               }`}
             >
               <Facebook className="w-3.5 h-3.5" />
-              <span>Facebook Post (Square)</span>
+              <span>Facebook Post</span>
             </button>
           </div>
 
@@ -252,6 +306,153 @@ export const PrintablePlatformModal: React.FC<PrintablePlatformModalProps> = ({
         {/* PREVIEW SCROLLABLE CONTAINER */}
         <div className="p-3 sm:p-6 overflow-y-auto bg-slate-100/80 flex-1 flex flex-col items-center justify-start print:p-0 print:bg-white print:overflow-visible space-y-6">
           
+          {/* ======================================================== */}
+          {/* FORMAT 0: 4x6 INCH PREPRESS POSTCARD (Separated Files)   */}
+          {/* ======================================================== */}
+          {activeFormat === 'postcard' && (
+            <div className="w-full max-w-5xl space-y-6">
+              {/* Prepress Specs Notification Bar */}
+              <div className="bg-gradient-to-r from-gecdsb-950 via-gecdsb-900 to-gecdsb-800 text-white rounded-2xl p-4 sm:p-5 border-2 border-amber-400/40 shadow-md">
+                <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+                  <div className="space-y-1">
+                    <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-bold border border-emerald-500/30">
+                      <Check className="w-3.5 h-3.5" />
+                      <span>Commercial Print-Shop Ready • CMYK 300 DPI</span>
+                    </div>
+                    <h2 className="text-lg sm:text-xl font-bold text-white tracking-tight">
+                      Official 4" × 6" Separated Campaign Postcard Files
+                    </h2>
+                    <p className="text-xs sm:text-sm text-gecdsb-100 leading-relaxed max-w-2xl">
+                      Two separate press-ready files (Front & Back) calibrated to the website's signature GECDSB teal and warm amber palette: 0.0625" bleeds, border-free safety margins, 100% outlined fonts, embedded CMYK 300 DPI raster photo, pure K100 text, and official contact info.
+                    </p>
+                  </div>
+
+                  {/* Quick Action Download Buttons */}
+                  <div className="flex flex-wrap sm:flex-nowrap gap-2 w-full md:w-auto shrink-0">
+                    <a
+                      href="/adam-peterson-postcard-front.pdf"
+                      download="adam-peterson-postcard-front.pdf"
+                      className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-gecdsb-800 hover:bg-gecdsb-700 text-amber-300 font-bold text-xs border border-amber-400/40 shadow-xs transition-colors"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>Front PDF</span>
+                    </a>
+                    <a
+                      href="/adam-peterson-postcard-back.pdf"
+                      download="adam-peterson-postcard-back.pdf"
+                      className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-gecdsb-800 hover:bg-gecdsb-700 text-amber-300 font-bold text-xs border border-amber-400/40 shadow-xs transition-colors"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>Back PDF</span>
+                    </a>
+                    <a
+                      href="/adam-peterson-4x6-postcard.pdf"
+                      download="adam-peterson-4x6-postcard.pdf"
+                      className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-black text-xs shadow-xs transition-colors"
+                    >
+                      <FileText className="w-3.5 h-3.5" />
+                      <span>Combined 2-Page Proof</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Two Column Visual Preview of Front & Back */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                {/* Front Side Card */}
+                <div className="bg-white rounded-2xl border border-slate-300 shadow-lg overflow-hidden flex flex-col">
+                  <div className="bg-gecdsb-950 text-white px-4 py-3 flex items-center justify-between border-b-2 border-amber-400">
+                    <div>
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-amber-400 block">
+                        File 1 of 2 • Front Side (4" × 6")
+                      </span>
+                      <h3 className="text-sm font-bold text-white">
+                        Core Platform & 3-Pillar Priorities
+                      </h3>
+                    </div>
+                    <a
+                      href="/adam-peterson-postcard-front.pdf"
+                      download="adam-peterson-postcard-front.pdf"
+                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs transition-colors"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>Download Front</span>
+                    </a>
+                  </div>
+
+                  <div className="p-3 sm:p-4 bg-slate-100 flex items-center justify-center">
+                    <img
+                      src="/postcard-front-preview.png"
+                      alt="Front Side 4x6 Postcard - Core Platform"
+                      className="w-full h-auto rounded-lg shadow-md border border-slate-200"
+                    />
+                  </div>
+
+                  <div className="p-4 bg-white border-t border-slate-200 text-xs text-slate-600 space-y-1">
+                    <p className="font-semibold text-slate-800">
+                      ✓ Exact Platform Design: "Let’s Put Students First" header with "Vote Peterson" button and CORE PLATFORM framework.
+                    </p>
+                    <p>
+                      ✓ 3 structured cards for Student Success, Collaboration, and Transparency with all 9 exact priority bullets.
+                    </p>
+                    <p>
+                      ✓ Centered contact footer: www.petersonforlasalle.com & Peterson4LaSalle@gmail.com.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Back Side Card */}
+                <div className="bg-white rounded-2xl border border-slate-300 shadow-lg overflow-hidden flex flex-col">
+                  <div className="bg-gecdsb-950 text-white px-4 py-3 flex items-center justify-between border-b-2 border-amber-400">
+                    <div>
+                      <span className="text-[11px] font-bold uppercase tracking-wider text-amber-400 block">
+                        File 2 of 2 • Back Side (4" × 6")
+                      </span>
+                      <h3 className="text-sm font-bold text-white">
+                        Vision, Perspective & Leadership Profile
+                      </h3>
+                    </div>
+                    <a
+                      href="/adam-peterson-postcard-back.pdf"
+                      download="adam-peterson-postcard-back.pdf"
+                      className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-xs transition-colors"
+                    >
+                      <Download className="w-3.5 h-3.5" />
+                      <span>Download Back</span>
+                    </a>
+                  </div>
+
+                  <div className="p-3 sm:p-4 bg-slate-100 flex items-center justify-center">
+                    <img
+                      src="/postcard-back-preview.png"
+                      alt="Back Side 4x6 Postcard - Candidate Profile"
+                      className="w-full h-auto rounded-lg shadow-md border border-slate-200"
+                    />
+                  </div>
+
+                  <div className="p-4 bg-white border-t border-slate-200 text-xs text-slate-600 space-y-1">
+                    <p className="font-semibold text-slate-800">
+                      ✓ Gold-framed candidate headshot alongside Vision, Perspective, and Leadership statements.
+                    </p>
+                    <p>
+                      ✓ 4 credential pills: Parent, Educator, Leader, Integrity across the bottom.
+                    </p>
+                    <p>
+                      ✓ Matching header with "Let's Put Students First", "Vote Peterson", and centered contact footer.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* ======================================================== */}
+          {/* FORMAT 0B: T-SHIRT & APPAREL LOGO STUDIO                 */}
+          {/* ======================================================== */}
+          {activeFormat === 'tshirt' && (
+            <TshirtStudio />
+          )}
+
           {/* ======================================================== */}
           {/* FORMAT 1: FACEBOOK POST GRAPHIC (Optimized 1:1 Square)   */}
           {/* ======================================================== */}
@@ -750,23 +951,41 @@ export const PrintablePlatformModal: React.FC<PrintablePlatformModalProps> = ({
               onClick={handleDownloadImage}
               disabled={isExportingImage || isExportingPdf}
               className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 font-bold cursor-pointer transition-colors border border-slate-300 shadow-xs disabled:opacity-50"
-              title="Download high-resolution image"
+              title={activeFormat === 'tshirt' ? 'Download 300 DPI transparent PNG logo' : 'Download high-resolution image'}
             >
               <Download className="w-3.5 h-3.5 text-slate-600" />
-              <span>{isExportingImage ? 'Generating PNG...' : 'Download Image (.png)'}</span>
+              <span>
+                {isExportingImage 
+                  ? 'Generating PNG...' 
+                  : activeFormat === 'tshirt' 
+                  ? 'Download 300 DPI PNG' 
+                  : 'Download Image (.png)'}
+              </span>
             </button>
 
-            {/* Direct PDF File Download */}
+            {/* Direct PDF / Vector File Download */}
             <button
               onClick={handleDownloadPdf}
               disabled={isExportingPdf || isExportingImage}
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-lg bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold cursor-pointer transition-colors shadow-xs disabled:opacity-50"
-              title={activeFormat === 'postcard' ? 'Download print-ready 4x6 inch Postcard PDF' : 'Download document as PDF'}
+              title={
+                activeFormat === 'tshirt'
+                  ? 'Download vector SVG logo for screen printers'
+                  : activeFormat === 'postcard'
+                  ? 'Download print-ready 4x6 inch Postcard PDF'
+                  : 'Download document as PDF'
+              }
             >
-              <FileText className="w-3.5 h-3.5" />
+              {activeFormat === 'tshirt' ? (
+                <Shirt className="w-3.5 h-3.5" />
+              ) : (
+                <FileText className="w-3.5 h-3.5" />
+              )}
               <span>
                 {isExportingPdf
-                  ? 'Creating PDF...'
+                  ? 'Creating File...'
+                  : activeFormat === 'tshirt'
+                  ? 'Download Vector SVG'
                   : activeFormat === 'postcard'
                   ? 'Download 4×6 Postcard PDF'
                   : 'Download PDF (.pdf)'}

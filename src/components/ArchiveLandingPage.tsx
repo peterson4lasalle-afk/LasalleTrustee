@@ -3,7 +3,6 @@ import { CandidateProfile } from '../types';
 import {
   Mail,
   ArrowRight,
-  ShieldCheck,
   BookOpen,
   Calendar,
   ExternalLink
@@ -55,32 +54,20 @@ export const ArchiveLandingPage: React.FC<ArchiveLandingPageProps> = ({
             <div className="absolute top-0 right-0 -mt-16 -mr-16 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none" />
             <div className="absolute bottom-0 left-0 -mb-16 -ml-16 w-64 h-64 bg-teal-500/10 rounded-full blur-3xl pointer-events-none" />
 
-            {/* Profile Avatar / Seal */}
-            <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5 mb-8">
-              <div className="relative">
-                <img
-                  src={candidate.photoUrl || '/candidate-headshot.jpg'}
-                  alt={candidate.fullName}
-                  className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl object-cover object-top border-2 border-amber-400/30 shadow-lg ring-4 ring-slate-800"
-                />
-                <div className="absolute -bottom-2 -right-2 bg-slate-800 border border-slate-700 rounded-full p-1.5 shadow">
-                  <ShieldCheck className="w-4 h-4 text-amber-400" />
-                </div>
+            {/* Official Header */}
+            <div className="mb-8">
+              <div className="inline-block text-xs uppercase tracking-widest font-bold text-amber-400 mb-1">
+                Official Statement
               </div>
-              <div className="text-center sm:text-left">
-                <div className="inline-block text-xs uppercase tracking-widest font-bold text-amber-400 mb-1">
-                  Official Statement
-                </div>
-                <h1 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
-                  {candidate.fullName}
-                </h1>
-                <p className="text-sm text-slate-400 mt-0.5">
-                  Trustee Candidate (2026) • Town of LaSalle & Town of Amherstburg
-                </p>
-                <p className="text-xs text-slate-500 mt-1">
-                  Greater Essex County District School Board
-                </p>
-              </div>
+              <h1 className="text-2xl sm:text-3xl font-serif font-bold text-white tracking-tight">
+                {candidate.fullName}
+              </h1>
+              <p className="text-sm text-slate-400 mt-0.5">
+                Trustee Candidate (2026) • Town of LaSalle & Town of Amherstburg
+              </p>
+              <p className="text-xs text-slate-500 mt-1">
+                Greater Essex County District School Board
+              </p>
             </div>
 
             {/* Primary Requested Statement Box */}

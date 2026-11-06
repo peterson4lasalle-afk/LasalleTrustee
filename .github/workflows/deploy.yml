@@ -2,7 +2,7 @@ name: Deploy Vite Site to Pages
 
 on:
   push:
-    branches: ["main"] # or 'master'
+    branches: ["main"]
 
 permissions:
   contents: read
@@ -26,10 +26,10 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: '22' # Updated to a modern supported runtime version
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci # Use npm ci for clean, deterministic CI installs
 
       - name: Build
         run: npm run build

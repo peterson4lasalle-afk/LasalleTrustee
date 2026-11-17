@@ -1,6 +1,6 @@
 {
   "name": "A Peterson for Trustee",
-  "description": "Official statement and campaign archive for Adam Peterson, candidate for Greater Essex County District School Board Trustee (Town of LaSalle & Town of Amherstburg).",
+  "description": "Official statement from Adam Peterson, candidate for Greater Essex County District School Board Trustee (Town of LaSalle & Town of Amherstburg).",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
